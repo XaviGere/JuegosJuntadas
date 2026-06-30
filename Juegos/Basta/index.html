@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basta! - Arcade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-izq">
+            <a href="../../index.html" class="btn-volver">⬅ Volver al Hub</a>
+            <h1 id="tituloSalaJuego">Basta!</h1>
+        </div>
+        <div class="nav-der">
+            <div id="rondaDisplay" class="ronda-badge">Ronda 1 / 3</div>
+        </div>
+    </header>
+
+    <div class="layout-juego">
+        
+        <aside class="panel-jugadores">
+            <h2>Orden de Juego</h2>
+            <p class="subtitulo">Acierta una letra o usa Pasapalabra para pasar el turno.</p>
+            <div id="listaJugadoresJuego" class="lista-turnos"></div>
+        </aside>
+
+        <main class="panel-tablero">
+            <div class="ruleta-contenedor" id="ruletaContenedor">
+                <!-- Capa SVG (Modo Disco) -->
+                <svg id="roscoSVG" width="540" height="540" viewBox="0 0 540 540"></svg>
+                
+                <!-- Capa HTML (Modos Círculos separados y Cuadrado) -->
+                <div id="letrasHTMLContenedor"></div>
+                
+                <div class="reloj" id="contador" onclick="tocarReloj()">▶</div>
+            </div>
+        </main>
+        
+        <aside class="panel-lateral">
+            <div class="btn-lateral btn-categoria" onclick="tirarCategoria()">
+                <span>CATEGORÍA</span>
+                <div id="textoCategoria">Toca para elegir</div>
+            </div>
+
+            <div class="btn-lateral btn-pausa" onclick="alternarPausa()" id="btnPausa">
+                <span>CONTROL</span>
+                <div>Pausar Juego</div>
+            </div>
+
+            <div class="btn-lateral btn-reiniciar" onclick="reiniciarRondaManual()">
+                <span>RONDA</span>
+                <div>Reiniciar Ronda</div>
+            </div>
+
+            <div class="btn-lateral btn-config" onclick="abrirConfigJuego()">
+                <span>AJUSTES</span>
+                <div>⚙️ Configuración</div>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- MODAL DE CONFIGURACIÓN DEL JUEGO -->
+    <div class="modal-overlay" id="modalConfigJuego">
+        <div class="modal-contenido modal-scrollable">
+            <h2>Ajustes de la Partida</h2>
+            
+            <div class="seccion-form-fila">
+                <div class="seccion-form">
+                    <label><b>Tiempo (seg):</b></label>
+                    <input type="number" id="inputTiempo" min="5" max="60">
+                </div>
+                <div class="seccion-form">
+                    <label><b>Rondas:</b></label>
+                    <input type="number" id="inputRondas" min="1" max="99">
+                </div>
+                <div class="seccion-form">
+                    <label><b>Max. Pasapalabras:</b></label>
+                    <input type="number" id="inputPasapalabras" min="0" max="10">
+                </div>
+            </div>
+
+            <div class="seccion-form-fila">
+                <div class="seccion-form">
+                    <label><b>Forma del Tablero:</b></label>
+                    <select id="selectFormaTablero">
+                        <option value="disco">Disco (Rosco Continuo)</option>
+                        <option value="circulos">Círculos Separados</option>
+                        <option value="cuadrado">Cuadrado (Ideal Móvil)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="seccion-form">
+                <label><b>Regla de Pasapalabras al cambiar de ronda:</b></label>
+                <select id="selectReglaPasapalabra">
+                    <option value="reset">Reiniciar al máximo seteado</option>
+                    <option value="add1">Sumar 1 (sin superar el máximo)</option>
+                    <option value="none">No sumar (mantener los que quedaron)</option>
+                </select>
+            </div>
+
+            <div class="seccion-form opcion-checkbox">
+                <label><b>Modo Completitud:</b></label>
+                <label class="switch">
+                    <input type="checkbox" id="checkCompletitud">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <hr class="divisor">
+
+            <div class="seccion-form">
+                <label><b>Letras en juego:</b> <small>(Toca para activar/desactivar)</small></label>
+                <div class="selector-letras-grid" id="gridLetrasConfig"></div>
+            </div>
+
+            <div class="seccion-form">
+                <label><b>Gestionar Categorías:</b></label>
+                <div class="agregar-categoria-form">
+                    <input type="text" id="inputNuevaCat" placeholder="Nueva categoría...">
+                    <button class="btn-secundario" onclick="agregarCategoria()">Agregar</button>
+                </div>
+                <div class="lista-categorias-manager" id="listaCatConfig"></div>
+            </div>
+
+            <div class="modal-botones-columna">
+                <button class="btn-guardar" onclick="guardarConfigJuego()">Aplicar a esta ronda</button>
+                <button class="btn-peligro" onclick="reiniciarPartidaCompleta()">Reiniciar TODA la Partida</button>
+                <button class="btn-cancelar" onclick="document.getElementById('modalConfigJuego').style.display = 'none'">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

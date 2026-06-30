@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-izq">
+            <button id="btnToggleSala" class="btn-icon">☰</button>
+            <h1>🎮 Arcade Hub</h1>
+        </div>
+        <div class="nav-der">
+            <button id="btnSettings" class="btn-icon" onclick="abrirModalConfig()">⚙️</button>
+        </div>
+    </header>
+
+    <div class="layout-principal">
+        
+        <aside class="sidebar-sala" id="sidebarSala">
+            <div class="sidebar-header">
+                <h2>Mis Salas</h2>
+                <button class="btn-crear-sala" onclick="abrirModalSala()">+ Nueva Sala</button>
+            </div>
+            <div id="contenedorSalas" class="contenedor-salas"></div>
+        </aside>
+
+        <main class="contenido-juegos">
+            <div class="header-juegos">
+                <h2>Selecciona un juego</h2>
+                <p id="textoSalaActiva" class="texto-sala-activa">Ninguna sala seleccionada</p>
+            </div>
+            <div class="grid-juegos">
+                
+                <a href="./juegos/basta/index.html" class="tarjeta-juego">
+                    <div class="juego-icono">A-Z</div>
+                    <h3>Basta!</h3>
+                    <p>El clásico juego de palabras y velocidad mental.</p>
+                </a>
+
+                <div class="tarjeta-juego proximo">
+                    <div class="juego-icono">❓</div>
+                    <h3>Próximamente</h3>
+                    <p>Nuevo juego en desarrollo.</p>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="modalSala">
+        <div class="modal-contenido">
+            <h2 id="tituloModalSala">Crear Nueva Sala</h2>
+            
+            <div class="seccion-form">
+                <label><b>Nombre y Color de la Sala:</b></label>
+                <input type="text" id="inputNombreSala" placeholder="Ej: Torneo de fin de semana">
+                <div class="paleta-container" id="paletaSala"></div>
+                <input type="hidden" id="inputColorSala">
+            </div>
+
+            <div class="seccion-form">
+                <label><b>Agregar Jugadores:</b></label>
+                <div class="input-con-boton">
+                    <input type="text" id="inputNombreJugador" placeholder="Nombre" onkeypress="manejarEnterJugador(event)">
+                    <button class="btn-secundario" onclick="agregarJugadorTemporal()">Añadir</button>
+                </div>
+                <div class="paleta-container" id="paletaJugador"></div>
+                <input type="hidden" id="inputColorJugador">
+                
+                <ul id="listaJugadoresTemp" class="lista-temp"></ul>
+            </div>
+
+            <div class="modal-botones">
+                <button class="btn-cancelar" onclick="cerrarModalSala()">Cancelar</button>
+                <button class="btn-guardar" id="btnGuardarSala" onclick="guardarSala()">Crear Sala</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalConfigGlobal">
+        <div class="modal-contenido modal-settings">
+            <h2>⚙️ Ajustes Generales</h2>
+            
+            <div class="seccion-settings cuenta-banner">
+                <div class="avatar-invitado">👤</div>
+                <div class="info-cuenta">
+                    <h3>Invitado</h3>
+                    <p>Iniciá sesión para guardar en la nube</p>
+                </div>
+                <button class="btn-login" onclick="alert('Próximamente: Autenticación')">Iniciar Sesión</button>
+            </div>
+
+            <div class="seccion-settings">
+                <div class="opcion-ajuste">
+                    <label><b>Modo Oscuro</b></label>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleModoOscuro" onchange="alternarModoOscuro()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                
+                <div class="opcion-ajuste-columna">
+                    <label><b>Volumen Principal:</b> <span id="valorVolumen">50%</span></label>
+                    <input type="range" id="inputVolumen" min="0" max="100" value="50" oninput="cambiarVolumen()">
+                </div>
+
+                <div class="opcion-ajuste-columna">
+                    <label><b>Idioma:</b></label>
+                    <select id="selectIdioma" onchange="cambiarIdioma()">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                        <option value="pt">Português</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-botones">
+                <button class="btn-guardar" style="width: 100%;" onclick="cerrarModalConfig()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego Basta - Configurable</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="contenedor-principal">
+        <div class="ruleta-contenedor" id="ruletaContenedor">
+            <div class="reloj" id="contador" onclick="tocarReloj()">15</div>
+        </div>
+
+        <div class="controles">
+            <div class="etiqueta-categoria" onclick="tirarCategoria()">
+                <span>CATEGORÍA</span>
+                <div id="textoCategoria">Toca para elegir</div>
+            </div>
+
+            <button class="btn-pausa" id="btnPausa" onclick="alternarPausa()">PAUSA</button>
+            <button class="btn-reinicio" onclick="reiniciarTodo()">REINICIAR RONDA</button>
+            <button class="btn-config" onclick="abrirModal()">⚙️ CONFIGURACIÓN</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalConfig">
+        <div class="modal-contenido">
+            <h2>⚙️ Configuración del Juego</h2>
+            
+            <div class="seccion-config">
+                <label for="inputTiempo"><b>Tiempo del temporizador (segundos):</b></label>
+                <input type="number" id="inputTiempo" min="5" max="120" value="15">
+            </div>
+
+            <div class="seccion-config">
+                <p><b>Letras en juego:</b> (Toca para activar/desactivar)</p>
+                <div class="selector-letras-grid" id="selectorLetrasGrid"></div>
+            </div>
+
+            <div class="seccion-config">
+                <p><b>Gestionar Categorías:</b></p>
+                <div class="agregar-categoria-form">
+                    <input type="text" id="nuevaCategoriaInput" placeholder="Nueva categoría...">
+                    <button onclick="agregarNuevaCategoria()">Agregar</button>
+                </div>
+                <div class="lista-categorias-manager" id="listaCategoriasManager"></div>
+            </div>
+
+            <div class="modal-botones">
+                <button class="btn-guardar" onclick="guardarConfiguracion()">APLICAR Y CERRAR</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
