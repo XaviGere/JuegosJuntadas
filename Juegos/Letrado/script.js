@@ -11,7 +11,7 @@ if (!salaActiva || salaActiva.jugadores.length === 0) {
     window.location.href = '../../index.html';
 }
 
-document.getElementById('tituloSalaJuego').innerText = `Basta! - ${salaActiva.nombre}`;
+document.getElementById('tituloSalaJuego').innerText = `Letrado - ${salaActiva.nombre}`;
 
 // --- MODO OSCURO GLOBAL ---
 let modoOscuro = localStorage.getItem('arcade_modo_oscuro') === 'true';
@@ -28,31 +28,39 @@ function alternarModoOscuro() {
     aplicarModoOscuroVisual();
 }
 
-// --- SISTEMA DE AUDIO (Web Audio API) ---
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-function reproducirTick() {
-    if (configGlobal.volumen <= 0) return; 
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    
-    const osc = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-    
-    osc.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
-    
-    const volumenReal = (configGlobal.volumen / 100) * 0.1;
-    gainNode.gain.setValueAtTime(volumenReal, audioCtx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05); 
-    
-    osc.start(audioCtx.currentTime);
-    osc.stop(audioCtx.currentTime + 0.05);
+// --- SISTEMA DE AUDIO BLINDADO ---
+let audioCtx = null;
+try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+} catch(e) {
+    console.warn("Audio no soportado en este navegador.");
 }
 
-// --- SISTEMA DE MENSAJERÍA ---
+function reproducirTick() {
+    try {
+        if (!audioCtx || configGlobal.volumen <= 0) return; 
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
+        
+        const volumenReal = (configGlobal.volumen / 100) * 0.1;
+        gainNode.gain.setValueAtTime(volumenReal, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05); 
+        
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.05);
+    } catch(e) {
+        // Fallar silenciosamente para no congelar el reloj
+    }
+}
+
+// --- MENSAJERÍA ---
 function mostrarToast(mensaje, duracion = 3500) {
     const container = document.getElementById('toastContainer');
     const toast = document.createElement('div');
@@ -78,31 +86,47 @@ document.getElementById('btnConfirmarAccion').addEventListener('click', () => {
     cerrarConfirmacion();
 });
 
+function mostrarResultado(icono, titulo, mensaje, callback) {
+    document.getElementById('iconoResultado').innerText = icono;
+    document.getElementById('tituloResultado').innerText = titulo;
+    document.getElementById('mensajeResultado').innerText = mensaje;
+    document.getElementById('modalResultado').style.display = 'flex';
+    
+    const btn = document.getElementById('btnContinuarResultado');
+    btn.onclick = () => {
+        document.getElementById('modalResultado').style.display = 'none';
+        if(callback) callback();
+    };
+}
+
 // --- CONFIGURACIÓN DE LA PARTIDA ---
 let configJuego = {
-    tiempo: 15,
+    tiempo: 10,
     rondas: 3,
     pasapalabras: 2,
-    formaTablero: 'disco', 
-    reglaPasapalabra: 'reset', 
-    completitud: false,
-    tiempoExtraCompletitud: 0,
+    reglaPasapalabra: 'reset',
+    ocurrenciasPorLetra: 1, 
     letrasActivas: "ABCDEFGHIJLMNOPRSTUV".split(""),
-    categoriasActivas: ["Película", "Comida", "Animal", "Marca", "País", "Profesión", "Color", "Serie", "Nombre Mujer", "Nombre Hombre"]
+    categoriasActivas: ["Películas", "Países", "Comida", "Marcas", "Deportes", "Animales", "Colores"]
 };
 
 const todasLasLetrasPosibles = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".split("");
 
 // --- ESTADOS DEL JUEGO ---
 let rondaActual = 1;
-let intervalo = null;
-let tiempoRestante = configJuego.tiempo;
-let tiempoDeTurnoFijo = configJuego.tiempo; 
+let bolsaLetras = [];
+let letraEnPantalla = "";
+
 let enJuego = false;
 let juegoPausado = false;
 let rondaFinalizada = false; 
-
 let categoriasUsadas = []; 
+
+let timerInterval = null;
+let tiempoInicio = 0;
+let tiempoPausado = 0;
+let tiempoLimiteMS = configJuego.tiempo * 1000;
+let tiempoRestanteMS = tiempoLimiteMS;
 
 let jugadoresPartida = salaActiva.jugadores.map(j => ({
     ...j, puntosMesa: 0, pasapalabras: configJuego.pasapalabras
@@ -110,179 +134,15 @@ let jugadoresPartida = salaActiva.jugadores.map(j => ({
 
 let jugadoresVivos = [];
 let turnoIndex = 0;
-let letrasDisponibles = [];
 
-const relojDOM = document.getElementById('contador');
-const svgDOM = document.getElementById('roscoSVG');
-const htmlContenedor = document.getElementById('letrasHTMLContenedor');
+// DOM Elements
+const circuloDOM = document.getElementById('circuloLetrado');
+const estadoInicialDOM = document.getElementById('estadoInicial');
+const estadoJuegoDOM = document.getElementById('estadoJuego');
+const timerDisplayDOM = document.getElementById('timerDisplay');
+const letraDisplayDOM = document.getElementById('letraDisplay');
 const btnPausaDOM = document.getElementById('btnPausa');
-
-// --- MATEMÁTICA Y RENDERIZADO DEL TABLERO ---
-const svgNS = "http://www.w3.org/2000/svg";
-const centro = 300; 
-
-function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
-    const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
-    return { x: centerX + (radius * Math.cos(angleInRadians)), y: centerY + (radius * Math.sin(angleInRadians)) };
-}
-
-function describirArcoDonut(x, y, rInt, rExt, anguloInicio, anguloFin) {
-    const startExt = polarToCartesian(x, y, rExt, anguloFin);
-    const endExt = polarToCartesian(x, y, rExt, anguloInicio);
-    const startInt = polarToCartesian(x, y, rInt, anguloFin);
-    const endInt = polarToCartesian(x, y, rInt, anguloInicio);
-    const arcFlag = anguloFin - anguloInicio <= 180 ? "0" : "1";
-    return ["M", startExt.x, startExt.y, "A", rExt, rExt, 0, arcFlag, 0, endExt.x, endExt.y, "L", endInt.x, endInt.y, "A", rInt, rInt, 0, arcFlag, 1, startInt.x, startInt.y, "Z"].join(" ");
-}
-
-function dibujarTablero() {
-    svgDOM.innerHTML = '';
-    htmlContenedor.innerHTML = '';
-    
-    if (configJuego.formaTablero === 'cuadrado') relojDOM.classList.add('forma-cuadrada');
-    else relojDOM.classList.remove('forma-cuadrada');
-
-    if (!enJuego) {
-        relojDOM.innerText = "▶";
-        relojDOM.style.backgroundColor = "#2c3e50";
-    }
-
-    if (configJuego.letrasActivas.length === 0) return;
-
-    if (configJuego.formaTablero === 'disco') {
-        svgDOM.style.display = 'block';
-        htmlContenedor.style.display = 'none';
-        dibujarDisco(configJuego.letrasActivas);
-    } else if (configJuego.formaTablero === 'circulos') {
-        svgDOM.style.display = 'none';
-        htmlContenedor.style.display = 'block';
-        dibujarCirculosFlotantes(configJuego.letrasActivas);
-    } else if (configJuego.formaTablero === 'cuadrado') {
-        svgDOM.style.display = 'none';
-        htmlContenedor.style.display = 'block';
-        dibujarCuadrado(configJuego.letrasActivas);
-    }
-}
-
-function manejarClickLetra(letra, elementoVisual) {
-    if (rondaFinalizada) return;
-
-    if (juegoPausado) {
-        if (elementoVisual.classList.contains('usada')) {
-            elementoVisual.classList.remove('usada');
-            letrasDisponibles.push(letra);
-        } else {
-            elementoVisual.classList.add('usada');
-            letrasDisponibles = letrasDisponibles.filter(l => l !== letra);
-        }
-        return;
-    }
-
-    if (!enJuego || elementoVisual.classList.contains('usada')) return;
-    
-    elementoVisual.classList.add('usada');
-    letrasDisponibles = letrasDisponibles.filter(l => l !== letra);
-    
-    if (letrasDisponibles.length === 0) verificarVictoria();
-    else pasarTurno();
-}
-
-function dibujarDisco(letras) {
-    const paddingAngular = 0.5; 
-    const radioInt = 175; 
-    const radioExt = 280; 
-    const anguloPorPorcion = 360 / letras.length;
-
-    letras.forEach((letra, index) => {
-        const anguloInicio = index * anguloPorPorcion + paddingAngular;
-        const anguloFin = (index + 1) * anguloPorPorcion - paddingAngular;
-
-        const path = document.createElementNS(svgNS, 'path');
-        path.setAttribute('d', describirArcoDonut(centro, centro, radioInt, radioExt, anguloInicio, anguloFin));
-        path.classList.add('segmento');
-
-        const textRadius = (radioInt + radioExt) / 2;
-        const posTexto = polarToCartesian(centro, centro, textRadius, (anguloInicio + anguloFin) / 2);
-        
-        const texto = document.createElementNS(svgNS, 'text');
-        texto.setAttribute('x', posTexto.x);
-        texto.setAttribute('y', posTexto.y + 10); 
-        texto.setAttribute('text-anchor', 'middle');
-        texto.classList.add('texto-letra');
-        texto.textContent = letra;
-
-        const grupo = document.createElementNS(svgNS, 'g');
-        if (!letrasDisponibles.includes(letra)) grupo.classList.add('usada');
-
-        grupo.appendChild(path);
-        grupo.appendChild(texto);
-        grupo.onclick = () => manejarClickLetra(letra, grupo);
-        svgDOM.appendChild(grupo);
-    });
-}
-
-function dibujarCirculosFlotantes(letras) {
-    const radio = 260; 
-    const anguloPorPorcion = (2 * Math.PI) / letras.length;
-
-    letras.forEach((letra, index) => {
-        const angulo = index * anguloPorPorcion - (Math.PI / 2);
-        const x = centro + radio * Math.cos(angulo);
-        const y = centro + radio * Math.sin(angulo);
-
-        const div = document.createElement('div');
-        div.className = 'letra-flotante forma-circulo';
-        div.style.left = `${x}px`;
-        div.style.top = `${y}px`;
-        div.innerText = letra;
-
-        if (!letrasDisponibles.includes(letra)) div.classList.add('usada');
-        div.onclick = () => manejarClickLetra(letra, div);
-        htmlContenedor.appendChild(div);
-    });
-}
-
-function dibujarCuadrado(letras) {
-    const W = 520; // Ancho disponible
-    const H = 520; // Alto disponible
-    const marginOffset = 40; 
-    const N = letras.length;
-    
-    // Matemática de Cuadrícula Perfecta
-    // Calculamos cuántos lugares por lado se necesitan para que cierre el cuadrado
-    let lado = Math.ceil((N + 4) / 4);
-    let cols = lado;
-    let rows = lado;
-    
-    let slots = [];
-    
-    // Borde Superior (Izquierda a Derecha) -> Empieza la 'A' en (0,0)
-    for (let c = 0; c < cols; c++) slots.push({c: c, r: 0});
-    // Borde Derecho (Arriba hacia Abajo)
-    for (let r = 1; r < rows; r++) slots.push({c: cols - 1, r: r});
-    // Borde Inferior (Derecha a Izquierda)
-    for (let c = cols - 2; c >= 0; c--) slots.push({c: c, r: rows - 1});
-    // Borde Izquierdo (Abajo hacia Arriba)
-    for (let r = rows - 2; r > 0; r--) slots.push({c: 0, r: r});
-
-    // Mapeamos las letras a los slots generados. 
-    // Si sobran slots, quedarán vacíos al final del recorrido (lado izquierdo).
-    letras.forEach((letra, index) => {
-        const slot = slots[index];
-        const x = slot.c * (W / (cols - 1));
-        const y = slot.r * (H / (rows - 1));
-
-        const div = document.createElement('div');
-        div.className = 'letra-flotante forma-cuadrado';
-        div.style.left = (x + marginOffset) + 'px'; 
-        div.style.top = (y + marginOffset) + 'px';
-        div.innerText = letra;
-
-        if (!letrasDisponibles.includes(letra)) div.classList.add('usada');
-        div.onclick = () => manejarClickLetra(letra, div);
-        htmlContenedor.appendChild(div);
-    });
-}
+const btnPPDOM = document.getElementById('btnPasapalabraJuego');
 
 // --- LÓGICA DE JUGADORES Y TURNOS ---
 function renderizarJugadores() {
@@ -315,94 +175,153 @@ function renderizarJugadores() {
     });
 }
 
-function iniciarTurno() {
+function generarBolsaLetras() {
+    bolsaLetras = [];
+    configJuego.letrasActivas.forEach(letra => {
+        for(let i=0; i < configJuego.ocurrenciasPorLetra; i++) {
+            bolsaLetras.push(letra);
+        }
+    });
+}
+
+function obtenerLetraAleatoria() {
+    if (bolsaLetras.length === 0) return null;
+    const indexAleatorio = Math.floor(Math.random() * bolsaLetras.length);
+    return bolsaLetras.splice(indexAleatorio, 1)[0];
+}
+
+// --- MOTOR DE TIEMPO ---
+function actualizarDisplayReloj() {
+    let segs = Math.floor(tiempoRestanteMS / 1000);
+    let milis = Math.floor((tiempoRestanteMS % 1000) / 10);
+    
+    timerDisplayDOM.innerText = `${segs}.${milis.toString().padStart(2, '0')}`;
+    
+    if (tiempoRestanteMS <= 5000 && tiempoRestanteMS > 0) {
+        timerDisplayDOM.classList.add('peligro');
+    } else {
+        timerDisplayDOM.classList.remove('peligro');
+    }
+}
+
+function iniciarTurno(esCambioDeLetra = true) {
     if (jugadoresVivos.length === 0) return;
     
     enJuego = true;
     juegoPausado = false;
     
-    tiempoDeTurnoFijo = configJuego.tiempo;
-    if (configJuego.completitud && jugadoresVivos.length === 1) {
-        tiempoDeTurnoFijo += configJuego.tiempoExtraCompletitud;
-    }
-    tiempoRestante = tiempoDeTurnoFijo;
-    
     const jugadorActual = jugadoresVivos[turnoIndex];
-    relojDOM.innerText = tiempoRestante;
-    relojDOM.style.backgroundColor = jugadorActual.color;
+
+    estadoInicialDOM.style.display = 'none';
+    estadoJuegoDOM.style.display = 'flex';
+    circuloDOM.style.borderColor = jugadorActual.color; 
+    letraDisplayDOM.style.color = jugadorActual.color; 
+    btnPPDOM.disabled = (jugadorActual.pasapalabras <= 0);
     
-    if(jugadorActual.pasapalabras <= 0) relojDOM.classList.add('sin-pasapalabra');
-    else relojDOM.classList.remove('sin-pasapalabra');
+    if (esCambioDeLetra) {
+        const nuevaLetra = obtenerLetraAleatoria();
+        if (!nuevaLetra) {
+            verificarVictoria();
+            return;
+        }
+        letraEnPantalla = nuevaLetra;
+        letraDisplayDOM.innerText = letraEnPantalla;
+    }
 
     renderizarJugadores();
     btnPausaDOM.querySelector('div').innerText = "Pausar Juego";
     btnPausaDOM.classList.remove('pausado');
 
-    if (intervalo) clearInterval(intervalo);
-    intervalo = setInterval(() => {
+    tiempoLimiteMS = configJuego.tiempo * 1000;
+    tiempoRestanteMS = tiempoLimiteMS;
+    tiempoInicio = Date.now();
+    actualizarDisplayReloj();
+
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
         if (!juegoPausado && !rondaFinalizada) {
-            tiempoRestante--;
-            relojDOM.innerText = tiempoRestante;
+            let tiempoPasado = Date.now() - tiempoInicio;
+            tiempoRestanteMS = tiempoLimiteMS - tiempoPasado;
             
-            if (tiempoRestante <= (tiempoDeTurnoFijo / 4) && tiempoRestante > 0) {
-                reproducirTick();
+            if (tiempoRestanteMS <= 5000 && tiempoRestanteMS > 0 && Math.floor(tiempoRestanteMS) % 1000 < 50) {
+                reproducirTick(); 
             }
 
-            if (tiempoRestante <= 0) {
-                clearInterval(intervalo);
+            if (tiempoRestanteMS <= 0) {
+                tiempoRestanteMS = 0;
+                actualizarDisplayReloj();
+                clearInterval(timerInterval);
                 eliminarJugadorActual();
+            } else {
+                actualizarDisplayReloj();
             }
         }
-    }, 1000);
+    }, 30);
 }
 
-function pasarTurno() {
-    turnoIndex = (turnoIndex + 1) % jugadoresVivos.length;
-    iniciarTurno();
-}
-
-function tocarReloj() {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-
-    if (rondaFinalizada || juegoPausado) return;
-    if (!enJuego) { iniciarTurno(); return; } 
+// --- INTERACCIONES DEL USUARIO ---
+function tocarCentro() {
+    try { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); } catch(e){}
     
+    if (rondaFinalizada || juegoPausado) return;
+    
+    if (!enJuego) {
+        // Corrección: Solo tira categoría automáticamente si el usuario 
+        // NO apretó el botón de categoría antes de darle a Play.
+        const textoCategoriaActual = document.getElementById('textoCategoria').innerText;
+        if (textoCategoriaActual === "Esperando inicio...") {
+            tirarCategoria();
+        }
+        iniciarTurno(true);
+        return;
+    } 
+    
+    turnoIndex = (turnoIndex + 1) % jugadoresVivos.length;
+    iniciarTurno(true);
+}
+
+function usarPasapalabra(evento) {
+    evento.stopPropagation(); 
+    if (rondaFinalizada || juegoPausado || !enJuego) return;
+
     const jugadorActual = jugadoresVivos[turnoIndex];
     if (jugadorActual.pasapalabras > 0) {
         jugadorActual.pasapalabras--;
-        pasarTurno();
+        turnoIndex = (turnoIndex + 1) % jugadoresVivos.length;
+        iniciarTurno(false); 
     }
 }
 
+// --- RESOLUCIÓN Y ELIMINACIONES ---
 function eliminarJugadorActual() {
     jugadoresVivos.splice(turnoIndex, 1);
     
     if (jugadoresVivos.length === 0) {
         enJuego = false; rondaFinalizada = true;
-        relojDOM.innerText = "✖"; relojDOM.style.backgroundColor = "#e74c3c";
-        mostrarToast("Nadie superó la ronda. Fin sin puntos.", 4000);
-        setTimeout(avanzarRonda, 3500);
-    } else if (jugadoresVivos.length === 1 && !configJuego.completitud) {
+        letraDisplayDOM.innerText = "✖"; letraDisplayDOM.style.color = "#e74c3c";
+        mostrarResultado("💀", "¡Todos Eliminados!", "Nadie superó la ronda. Fin sin puntos.", avanzarRonda);
+    } else if (jugadoresVivos.length === 1) {
         enJuego = false; rondaFinalizada = true;
-        relojDOM.innerText = "🏆"; relojDOM.style.backgroundColor = "#f1c40f";
+        letraDisplayDOM.innerText = "🏆"; letraDisplayDOM.style.color = "#f1c40f";
+        timerDisplayDOM.classList.remove('peligro');
         jugadoresVivos[0].puntosMesa += 100;
         renderizarJugadores();
-        mostrarToast(`¡${jugadoresVivos[0].nombre} es el último en pie y gana 100 puntos!`, 4000);
-        setTimeout(avanzarRonda, 3500);
+        mostrarResultado("👑", "¡Último en pie!", `¡${jugadoresVivos[0].nombre} gana 100 puntos!`, avanzarRonda);
     } else {
         if (turnoIndex >= jugadoresVivos.length) turnoIndex = 0;
-        iniciarTurno();
+        iniciarTurno(false); 
     }
 }
 
 function verificarVictoria() {
-    clearInterval(intervalo);
+    clearInterval(timerInterval);
     enJuego = false; rondaFinalizada = true;
-    relojDOM.innerText = "🏆"; relojDOM.style.backgroundColor = "#2ecc71";
+    letraDisplayDOM.innerText = "🏆"; letraDisplayDOM.style.color = "#2ecc71";
+    timerDisplayDOM.classList.remove('peligro');
+    
     jugadoresVivos.forEach(j => j.puntosMesa += 100);
     renderizarJugadores();
-    mostrarToast("¡Tablero completado! Los sobrevivientes ganan 100 puntos.", 4000);
-    setTimeout(avanzarRonda, 3500);
+    mostrarResultado("🎉", "¡Bolsa Vacía!", "¡Se completó el abecedario! Los sobrevivientes ganan 100 puntos.", avanzarRonda);
 }
 
 // --- CONTROLES Y RONDAS ---
@@ -411,6 +330,13 @@ function alternarPausa() {
     juegoPausado = !juegoPausado;
     btnPausaDOM.classList.toggle('pausado', juegoPausado);
     btnPausaDOM.querySelector('div').innerText = juegoPausado ? "Reanudar" : "Juego Pausado";
+
+    if (juegoPausado) {
+        tiempoPausado = tiempoRestanteMS;
+    } else {
+        tiempoLimiteMS = tiempoPausado;
+        tiempoInicio = Date.now();
+    }
 }
 
 function rotarJugadores() {
@@ -421,7 +347,7 @@ function rotarJugadores() {
 }
 
 function prepararRonda() {
-    letrasDisponibles = [...configJuego.letrasActivas];
+    generarBolsaLetras();
     
     if (rondaActual === 1) {
         jugadoresVivos = jugadoresPartida.map(j => { j.pasapalabras = configJuego.pasapalabras; return j; });
@@ -438,12 +364,17 @@ function prepararRonda() {
     juegoPausado = false;
     rondaFinalizada = false;
     
-    relojDOM.classList.remove('sin-pasapalabra');
     document.getElementById('rondaDisplay').innerText = `Ronda ${rondaActual} / ${configJuego.rondas}`;
     btnPausaDOM.classList.remove('pausado');
     btnPausaDOM.querySelector('div').innerText = "Pausar Juego";
+    document.getElementById('textoCategoria').innerText = "Esperando inicio...";
+    btnPPDOM.disabled = true;
+
+    estadoInicialDOM.style.display = 'block';
+    estadoJuegoDOM.style.display = 'none';
+    circuloDOM.style.borderColor = 'transparent';
+    timerDisplayDOM.classList.remove('peligro');
     
-    dibujarTablero();
     renderizarJugadores();
 }
 
@@ -463,21 +394,22 @@ function finalizarPartidaYGuardarGlobal() {
         });
         localStorage.setItem('arcade_salas', JSON.stringify(salasHub));
     }
-    mostrarToast("¡Juego Terminado! Los puntos se guardaron en la sala.", 3000);
-    setTimeout(() => { window.location.href = '../../index.html'; }, 3000);
+    mostrarResultado("🎮", "¡Partida Finalizada!", "Los puntos se sumaron al global de la sala.", () => {
+        window.location.href = '../../index.html';
+    });
 }
 
 function reiniciarRondaManual() {
-    mostrarConfirmacion("¿Seguro que querés reiniciar esta ronda? (No afecta los puntos ya ganados)", () => {
-        clearInterval(intervalo);
+    mostrarConfirmacion("¿Seguro que querés reiniciar esta ronda? (No afecta los puntos ganados)", () => {
+        if(timerInterval) clearInterval(timerInterval);
         prepararRonda();
         mostrarToast("Ronda reiniciada.");
     });
 }
 
 function pedirReinicioCompleto() {
-    mostrarConfirmacion("ATENCIÓN: Esto borrará todos los puntos ganados en ESTA partida y volverá a la Ronda 1. ¿Estás seguro?", () => {
-        clearInterval(intervalo);
+    mostrarConfirmacion("ATENCIÓN: Esto borrará todos los puntos de ESTA partida y volverá a la Ronda 1. ¿Estás seguro?", () => {
+        if(timerInterval) clearInterval(timerInterval);
         rondaActual = 1;
         categoriasUsadas = []; 
         jugadoresPartida = salaActiva.jugadores.map(j => ({
@@ -510,22 +442,13 @@ function tirarCategoria() {
 // --- CONFIGURACIÓN MODAL ---
 let configTemporal = { letras: [], categorias: [] };
 
-function toggleTiempoExtra() {
-    const isChecked = document.getElementById('checkCompletitud').checked;
-    document.getElementById('divTiempoExtra').style.display = isChecked ? 'block' : 'none';
-}
-
 function abrirConfigJuego() { 
     document.getElementById('modalConfigJuego').style.display = 'flex'; 
     document.getElementById('inputTiempo').value = configJuego.tiempo;
     document.getElementById('inputRondas').value = configJuego.rondas;
     document.getElementById('inputPasapalabras').value = configJuego.pasapalabras;
-    document.getElementById('selectFormaTablero').value = configJuego.formaTablero;
+    document.getElementById('inputOcurrencias').value = configJuego.ocurrenciasPorLetra;
     document.getElementById('selectReglaPasapalabra').value = configJuego.reglaPasapalabra;
-    
-    document.getElementById('checkCompletitud').checked = configJuego.completitud;
-    document.getElementById('inputTiempoExtra').value = configJuego.tiempoExtraCompletitud;
-    toggleTiempoExtra();
     
     configTemporal.letras = [...configJuego.letrasActivas];
     configTemporal.categorias = [...configJuego.categoriasActivas];
@@ -584,25 +507,23 @@ function eliminarCategoria(idx) {
 }
 
 function guardarConfigJuego() {
-    if(configTemporal.letras.length < 4) {
-        mostrarToast("Debes seleccionar al menos 4 letras para que el tablero no se rompa.", 3000);
+    if(configTemporal.letras.length === 0) {
+        mostrarToast("Debes seleccionar al menos 1 letra para jugar.", 3000);
         return;
     }
 
     configJuego.tiempo = parseInt(document.getElementById('inputTiempo').value);
     configJuego.rondas = parseInt(document.getElementById('inputRondas').value);
     configJuego.pasapalabras = parseInt(document.getElementById('inputPasapalabras').value);
-    configJuego.formaTablero = document.getElementById('selectFormaTablero').value;
+    configJuego.ocurrenciasPorLetra = parseInt(document.getElementById('inputOcurrencias').value) || 1;
     configJuego.reglaPasapalabra = document.getElementById('selectReglaPasapalabra').value;
-    configJuego.completitud = document.getElementById('checkCompletitud').checked;
-    configJuego.tiempoExtraCompletitud = parseInt(document.getElementById('inputTiempoExtra').value) || 0;
     
     configJuego.letrasActivas = [...configTemporal.letras];
     configJuego.categoriasActivas = [...configTemporal.categorias];
     
     document.getElementById('modalConfigJuego').style.display = 'none';
     
-    clearInterval(intervalo);
+    if(timerInterval) clearInterval(timerInterval);
     prepararRonda();
     mostrarToast("Ajustes aplicados. Se reinició la ronda actual.");
 }

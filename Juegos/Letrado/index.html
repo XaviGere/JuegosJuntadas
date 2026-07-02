@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basta! - Arcade</title>
+    <title>Letrado - Arcade</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <header class="navbar">
         <div class="nav-izq">
             <a href="../../index.html" class="btn-volver">⬅ Volver al Hub</a>
-            <h1 id="tituloSalaJuego">Basta!</h1>
+            <h1 id="tituloSalaJuego">Letrado</h1>
         </div>
         <div class="nav-der">
             <div id="rondaDisplay" class="ronda-badge">Ronda 1 / 3</div>
@@ -22,24 +22,31 @@
         
         <aside class="panel-jugadores">
             <h2>Orden de Juego</h2>
-            <p class="subtitulo">Acierta una letra o usa Pasapalabra.</p>
+            <p class="subtitulo">Acierta una palabra con la letra y toca el centro, o usa Pasapalabra.</p>
             <div id="listaJugadoresJuego" class="lista-turnos"></div>
         </aside>
 
         <main class="panel-tablero">
-            <div class="ruleta-contenedor" id="ruletaContenedor">
-                <svg id="roscoSVG" width="600" height="600" viewBox="0 0 600 600"></svg>
+            <div class="ruleta-contenedor">
+                <div id="circuloLetrado" class="circulo-letrado" onclick="tocarCentro()">
+                    <div id="estadoInicial" class="estado-inicial">▶</div>
+                    
+                    <div id="estadoJuego" class="estado-juego" style="display: none;">
+                        <div id="timerDisplay" class="timer-letrado">15.00</div>
+                        <div id="letraDisplay" class="letra-gigante">A</div>
+                    </div>
+                </div>
                 
-                <div id="letrasHTMLContenedor"></div>
-                
-                <div class="reloj" id="contador" onclick="tocarReloj()">▶</div>
+                <button id="btnPasapalabraJuego" class="btn-pp-flotante" onclick="usarPasapalabra(event)">
+                    ⏭️ Pasapalabra
+                </button>
             </div>
         </main>
         
         <aside class="panel-lateral">
             <div class="btn-lateral btn-categoria" onclick="tirarCategoria()">
-                <span>CATEGORÍA</span>
-                <div id="textoCategoria">Toca para elegir</div>
+                <span>CATEGORÍA ACTUAL</span>
+                <div id="textoCategoria">Esperando inicio...</div>
             </div>
 
             <div class="btn-lateral btn-pausa" onclick="alternarPausa()" id="btnPausa">
@@ -62,21 +69,10 @@
 
     <div id="toastContainer" class="toast-container"></div>
 
-    <div class="modal-overlay" id="modalConfirm">
-        <div class="modal-contenido modal-pequeno">
-            <h2 id="confirmTitulo">Atención</h2>
-            <p id="confirmMensaje">¿Estás seguro?</p>
-            <div class="modal-botones-fila">
-                <button class="btn-cancelar" onclick="cerrarConfirmacion()">Cancelar</button>
-                <button class="btn-guardar" id="btnConfirmarAccion">Sí, estoy seguro</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modalConfigJuego">
+    <div class="modal-overlay" id="modalConfigJuego" style="z-index: 200;">
         <div class="modal-contenido modal-scrollable">
             <div class="modal-header-config">
-                <h2>Ajustes de la Partida</h2>
+                <h2>Ajustes de Letrado</h2>
                 <div class="opcion-modo-oscuro">
                     <span>🌙</span>
                     <label class="switch">
@@ -89,54 +85,38 @@
             <div class="seccion-form-fila">
                 <div class="seccion-form">
                     <label><b>Tiempo (seg):</b></label>
-                    <input type="number" id="inputTiempo" min="5" max="60">
+                    <input type="number" id="inputTiempo" min="3" max="60">
                 </div>
                 <div class="seccion-form">
                     <label><b>Rondas:</b></label>
                     <input type="number" id="inputRondas" min="1" max="99">
                 </div>
-                <div class="seccion-form">
-                    <label><b>Max. Pasapalabras:</b></label>
-                    <input type="number" id="inputPasapalabras" min="0" max="10">
-                </div>
             </div>
 
             <div class="seccion-form-fila">
                 <div class="seccion-form">
-                    <label><b>Forma del Tablero:</b></label>
-                    <select id="selectFormaTablero">
-                        <option value="disco">Disco (Rosco Continuo)</option>
-                        <option value="circulos">Círculos Separados</option>
-                        <option value="cuadrado">Cuadrado (Vértices fijos)</option>
-                    </select>
+                    <label><b>Max. Pasapalabras:</b></label>
+                    <input type="number" id="inputPasapalabras" min="0" max="10">
+                </div>
+                <div class="seccion-form">
+                    <label><b>Apariciones por Letra:</b></label>
+                    <input type="number" id="inputOcurrencias" min="1" max="10" title="Cuántas veces puede salir la misma letra">
                 </div>
             </div>
 
             <div class="seccion-form">
-                <label><b>Pasapalabras tras cada ronda:</b></label>
+                <label><b>Regla Pasapalabras por ronda:</b></label>
                 <select id="selectReglaPasapalabra">
-                    <option value="reset">Reiniciar al máximo seteado</option>
-                    <option value="add1">Sumar 1 (sin superar el máximo)</option>
-                    <option value="none">No sumar (mantener los que quedaron)</option>
+                    <option value="reset">Reiniciar al máximo</option>
+                    <option value="add1">Sumar 1</option>
+                    <option value="none">No sumar (mantener)</option>
                 </select>
-            </div>
-
-            <div class="seccion-form opcion-checkbox">
-                <label><b>Modo Completitud:</b></label>
-                <label class="switch">
-                    <input type="checkbox" id="checkCompletitud" onchange="toggleTiempoExtra()">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <div class="seccion-form" id="divTiempoExtra" style="display: none; padding-left: 15px; border-left: 3px solid var(--primary-color);">
-                <label><b>Segundos extra por turno (al quedar solo):</b></label>
-                <input type="number" id="inputTiempoExtra" min="0" max="60" value="0">
             </div>
 
             <hr class="divisor">
 
             <div class="seccion-form">
-                <label><b>Letras en juego:</b> <small>(Toca para activar)</small></label>
+                <label><b>Letras en la bolsa:</b> <small>(Toca para activar)</small></label>
                 <div class="selector-letras-grid" id="gridLetrasConfig"></div>
             </div>
 
@@ -152,7 +132,29 @@
             <div class="modal-botones-columna">
                 <button class="btn-guardar" onclick="guardarConfigJuego()">Aplicar y seguir jugando</button>
                 <button class="btn-peligro" onclick="pedirReinicioCompleto()">Reiniciar TODA la Partida</button>
-                <button class="btn-cancelar" onclick="document.getElementById('modalConfigJuego').style.display = 'none'">Cerrar Configuración</button>
+                <button class="btn-cancelar" onclick="document.getElementById('modalConfigJuego').style.display = 'none'">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalConfirm" style="z-index: 300;">
+        <div class="modal-contenido modal-pequeno">
+            <h2 id="confirmTitulo">Atención</h2>
+            <p id="confirmMensaje">¿Estás seguro?</p>
+            <div class="modal-botones-fila">
+                <button class="btn-cancelar" onclick="cerrarConfirmacion()">Cancelar</button>
+                <button class="btn-guardar" id="btnConfirmarAccion">Sí, seguro</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalResultado" style="z-index: 400;">
+        <div class="modal-contenido modal-pequeno" style="text-align: center;">
+            <div id="iconoResultado" style="font-size: 65px; margin-bottom: 10px;">🏆</div>
+            <h2 id="tituloResultado">¡Ronda Superada!</h2>
+            <p id="mensajeResultado" style="font-size: 16px; margin-bottom: 25px;">Mensaje genérico</p>
+            <div class="modal-botones-columna">
+                <button class="btn-guardar" id="btnContinuarResultado" style="padding: 15px; font-size: 18px;">Continuar</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mente Maestra - Arcade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-izq">
+            <a href="../../index.html" class="btn-volver">⬅ Volver al Hub</a>
+            <h1 id="tituloSalaJuego">Mente Maestra</h1>
+        </div>
+        <div class="nav-der">
+            <div id="rondaDisplay" class="ronda-badge" style="display:none;">Ronda 1 / 3</div>
+        </div>
+    </header>
+
+    <div class="layout-juego">
+        
+        <div id="pantallaSetup" class="pantalla-centrada">
+            <div class="setup-caja">
+                <h2>División de Equipos</h2>
+                <p class="subtitulo">Configurá los grupos de forma aleatoria o manual.</p>
+                
+                <div class="seccion-form">
+                    <label><b>Cantidad de Equipos:</b></label>
+                    <input type="number" id="inputNumEquipos" min="2" max="4" value="2" onchange="limpiarPreviaAlCambiar()">
+                </div>
+                
+                <div class="botones-setup-fila">
+                    <button class="btn-setup-opcion btn-primario" onclick="generarEquiposAleatorios()">🎲 Aleatorio</button>
+                    <button class="btn-setup-opcion btn-secundario-crear" onclick="prepararAsignacionManual()">👥 Manual</button>
+                </div>
+
+                <div id="contenedorAsignacion" style="margin-top: 15px;"></div>
+                
+                <div id="vistaPreviaEquipos" class="grid-equipos"></div>
+
+                <button id="btnIrTablero" class="btn-gigante btn-exito" style="display:none; margin-top: 25px;" onclick="irAlTablero()">
+                    Ir a la Mesa de Juego ➔
+                </button>
+            </div>
+        </div>
+
+        <div id="pantallaJuego" class="pantalla-juego" style="display:none;">
+            
+            <aside class="panel-equipos" id="panelEquiposDOM">
+                <h2>Puntajes</h2>
+                </aside>
+
+            <main class="panel-tablero">
+                <div class="caja-trivia">
+                    
+                    <div id="estadoInicialTrivia" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 350px;">
+                        <h2 style="font-size: 32px; margin-bottom: 10px;">Todo listo</h2>
+                        <p style="color: #7f8c8d; margin-bottom: 30px;">Ajustá las reglas en el panel lateral o empezá a jugar.</p>
+                        <button class="btn-gigante btn-primario" style="width: 250px; padding: 20px; font-size: 24px;" onclick="iniciarTrivia()">
+                            ▶ Comenzar
+                        </button>
+                    </div>
+
+                    <div id="estadoActivoTrivia" style="display: none;">
+                        <div id="etiquetaTematica" class="badge-tematica">TEMÁTICA</div>
+                        
+                        <div id="turnoAnuncio" class="anuncio-turno">
+                            Es el turno del <span id="nombreEquipoTurno">Equipo 1</span>
+                        </div>
+
+                        <div id="textoPregunta" class="texto-pregunta">
+                            ¿Pregunta de prueba?
+                        </div>
+
+                        <div id="relojTrivia" class="reloj-gigante" onclick="forzarRespuesta()">
+                            30
+                        </div>
+                        <p class="ayuda-click" id="ayudaClick">(Toca el reloj cuando respondan)</p>
+
+                        <div id="zonaValidacion" class="zona-validacion" style="display:none;">
+                            <div class="texto-respuesta">
+                                <span>Respuesta correcta:</span>
+                                <h3 id="textoRespuestaCorrecta">La respuesta</h3>
+                            </div>
+                            <div id="controlesValidacion" style="display:none;">
+                                <p class="pregunta-moderador">¿Respondieron correctamente?</p>
+                                <div class="botones-validacion">
+                                    <button class="btn-val-rojo" onclick="calificarRespuesta(false)">✖ Incorrecto</button>
+                                    <button class="btn-val-verde" onclick="calificarRespuesta(true)">✔ Correcto (+100)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <aside class="panel-lateral">
+                <div class="btn-lateral btn-categoria">
+                    <span>TEMÁTICA ACTUAL</span>
+                    <div id="textoCategoriaLateral">Esperando...</div>
+                </div>
+
+                <div class="btn-lateral btn-pausa" onclick="alternarPausa()" id="btnPausa">
+                    <span>CONTROL</span>
+                    <div>Pausar Juego</div>
+                </div>
+
+                <div class="btn-lateral btn-reiniciar" onclick="reiniciarRondaManual()">
+                    <span>RONDA</span>
+                    <div>Reiniciar Ronda</div>
+                </div>
+
+                <div class="btn-lateral btn-config" onclick="abrirConfigJuego()">
+                    <span>AJUSTES</span>
+                    <div>⚙️ Configuración</div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalConfigJuego" style="z-index: 200;">
+        <div class="modal-contenido modal-scrollable">
+            <div class="modal-header-config">
+                <h2>Ajustes de Mente Maestra</h2>
+            </div>
+            
+            <div class="seccion-form">
+                <label><b>Cantidad de Rondas:</b></label>
+                <input type="number" id="inputRondas" min="1" max="20">
+            </div>
+
+            <div class="seccion-form">
+                <label><b>Mecánicas Especiales:</b></label>
+                <button id="btnModoRobo" class="btn-modo-robo" onclick="alternarModoRoboPlaceholder()">
+                    💥 Modo Robo: Deshabilitado (Próximamente)
+                </button>
+            </div>
+
+            <hr class="divisor">
+
+            <div class="seccion-form">
+                <label><b>Temáticas activas en la bolsa:</b> <small>(Toca para activar/desactivar)</small></label>
+                <div class="selector-letras-grid" id="gridTematicasConfig"></div>
+            </div>
+
+            <div class="modal-botones-columna">
+                <button class="btn-guardar" onclick="guardarConfigJuego()">Aplicar Ajustes</button>
+                <button class="btn-peligro" onclick="pedirReinicioCompleto()">Reiniciar TODA la Partida</button>
+                <button class="btn-cancelar" onclick="document.getElementById('modalConfigJuego').style.display = 'none'">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalConfirm" style="z-index: 300;">
+        <div class="modal-contenido modal-pequeno">
+            <h2 id="confirmTitulo">Atención</h2>
+            <p id="confirmMensaje">¿Estás seguro?</p>
+            <div class="modal-botones-fila">
+                <button class="btn-cancelar" onclick="cerrarConfirmacion()">Cancelar</button>
+                <button class="btn-guardar" id="btnConfirmarAccion">Sí, seguro</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalResultado" style="z-index: 400;">
+        <div class="modal-contenido modal-pequeno" style="text-align: center;">
+            <div id="iconoResultado" style="font-size: 65px; margin-bottom: 10px;">🏆</div>
+            <h2 id="tituloResultado">¡Fin de Trivia!</h2>
+            <p id="mensajeResultado" style="font-size: 16px; margin-bottom: 25px;">Mensaje genérico</p>
+            <div class="modal-botones-columna">
+                <button class="btn-guardar" id="btnContinuarResultado" style="padding: 15px; font-size: 18px;">Finalizar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

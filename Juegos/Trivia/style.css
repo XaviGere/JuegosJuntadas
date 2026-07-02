@@ -1,0 +1,136 @@
+:root {
+    --bg-color: #f4f6f8;
+    --text-color: #333333;
+    --navbar-bg: #ffffff;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --primary-color: #3498db;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --toast-bg: #2c3e50;
+    --equipo-1: #3498db;
+    --equipo-2: #e74c3c;
+    --equipo-3: #f1c40f;
+    --equipo-4: #9b59b6;
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --navbar-bg: #1e1e1e;
+    --card-bg: #242424;
+    --border-color: #333333;
+    --primary-color: #2980b9;
+    --toast-bg: #34495e;
+}
+
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-color); overflow: hidden; }
+
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 0 20px; height: 60px; background-color: var(--navbar-bg); border-bottom: 1px solid var(--border-color); }
+.nav-izq { display: flex; align-items: center; gap: 20px; }
+.btn-volver { text-decoration: none; font-weight: bold; color: var(--primary-color); }
+.ronda-badge { background-color: #2c3e50; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; }
+
+.layout-juego { display: flex; height: calc(100vh - 60px); width: 100%; }
+
+/* SETUP */
+.pantalla-centrada { display: flex; width: 100%; justify-content: center; align-items: center; background-color: var(--bg-color); }
+.setup-caja { background: var(--card-bg); padding: 35px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 650px; text-align: center; max-height: 90vh; overflow-y: auto; }
+.setup-caja h2 { margin-top: 0; }
+.subtitulo { color: #7f8c8d; font-size: 14px; margin-bottom: 20px; }
+
+.seccion-form { margin-bottom: 15px; text-align: left; }
+input[type="number"] { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); font-size: 16px; box-sizing: border-box; margin-top: 6px; }
+
+.botones-setup-fila { display: flex; gap: 15px; margin-bottom: 15px; }
+.btn-setup-opcion { flex: 1; padding: 12px; font-size: 16px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; color: white; }
+.btn-secundario-crear { background-color: #e67e22; box-shadow: 0 4px 0 #d35400; }
+.btn-gigante { width: 100%; padding: 15px; font-size: 18px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: transform 0.1s; color: white; }
+.btn-gigante:active { transform: translateY(3px); }
+.btn-primario { background-color: var(--primary-color); box-shadow: 0 5px 0 #2980b9; }
+.btn-exito { background-color: var(--success-color); box-shadow: 0 5px 0 #27ae60; }
+
+/* ASIGNACIÓN CÍCLICA */
+.bloque-manual { background: var(--bg-color); border: 1px dashed var(--border-color); border-radius: 10px; padding: 15px; text-align: left; }
+.item-jugador-manual { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 8px; margin-bottom: 8px; cursor: pointer; user-select: none; transition: transform 0.1s; background: var(--card-bg); border: 2px solid transparent; }
+.item-jugador-manual:active { transform: scale(0.98); }
+.badge-equipo-asignado { padding: 5px 12px; border-radius: 12px; font-size: 13px; font-weight: bold; color: white; text-shadow: 1px 1px 1px rgba(0,0,0,0.3); }
+
+.grid-equipos { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
+.tarjeta-equipo { background: var(--bg-color); border: 2px solid var(--border-color); border-radius: 10px; padding: 12px; text-align: left; }
+.tarjeta-equipo h3 { margin: 0 0 10px 0; border-bottom: 2px solid; padding-bottom: 5px; font-size: 16px; }
+.lista-jugadores-setup { list-style: none; padding: 0; margin: 0; font-size: 13px; }
+.lista-jugadores-setup li { padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+.color-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+/* JUEGO ACTIVO */
+.pantalla-juego { display: flex; width: 100%; }
+.panel-equipos { width: 320px; background-color: var(--card-bg); border-right: 1px solid var(--border-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
+.panel-tablero { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; }
+
+.equipo-status { padding: 15px; border-radius: 10px; border-left: 6px solid; background: var(--bg-color); opacity: 0.5; transition: 0.3s; }
+.equipo-status.activo { opacity: 1; transform: scale(1.02); box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-right: 1px solid var(--border-color); }
+.equipo-status h4 { margin: 0 0 5px 0; font-size: 18px; }
+.contenedor-tags-integrantes { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tag-integrante { font-size: 11px; padding: 3px 8px; border-radius: 12px; color: white; font-weight: bold; text-shadow: 1px 1px 1px rgba(0,0,0,0.3); }
+.equipo-pts { font-size: 22px; font-weight: bold; margin-top: 5px; }
+
+.caja-trivia { width: 680px; background: var(--card-bg); border-radius: 20px; padding: 35px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; }
+.badge-tematica { background: #9b59b6; color: white; padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; display: inline-block; margin-bottom: 15px; }
+.anuncio-turno { font-size: 16px; color: #7f8c8d; margin-bottom: 15px; font-weight: bold; }
+.texto-pregunta { font-size: 28px; font-weight: bold; line-height: 1.3; margin-bottom: 35px; min-height: 80px; display: flex; align-items: center; justify-content: center; }
+
+.reloj-gigante { width: 140px; height: 140px; margin: 0 auto; background: var(--bg-color); border: 8px solid var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 55px; font-weight: 900; cursor: pointer; transition: 0.2s; user-select: none; }
+.reloj-gigante:active { transform: scale(0.95); }
+.ayuda-click { font-size: 12px; color: #95a5a6; margin-top: 10px; }
+
+.zona-validacion { margin-top: 20px; padding-top: 15px; border-top: 2px dashed var(--border-color); animation: fadeIn 0.3s ease-out; }
+.texto-respuesta span { font-size: 13px; color: #7f8c8d; }
+.texto-respuesta h3 { font-size: 24px; margin: 5px 0 15px 0; color: #3498db; }
+.pregunta-moderador { font-weight: bold; margin-bottom: 12px; font-size: 15px; }
+.botones-validacion { display: flex; gap: 15px; justify-content: center; }
+.botones-validacion button { flex: 1; padding: 12px; font-size: 16px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; color: white; }
+.btn-val-rojo { background-color: var(--danger-color); box-shadow: 0 4px 0 #c0392b; }
+.btn-val-verde { background-color: var(--success-color); box-shadow: 0 4px 0 #27ae60; }
+.botones-validacion button:active { transform: translateY(4px); box-shadow: 0 0 0 transparent; }
+
+/* BARRA LATERAL DERECHA */
+.panel-lateral { width: 260px; padding: 20px; background-color: var(--card-bg); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 15px; }
+.btn-lateral { color: white; padding: 18px; border-radius: 10px; text-align: center; font-size: 16px; font-weight: bold; cursor: pointer; user-select: none; transition: transform 0.1s; }
+.btn-lateral:active { transform: translateY(5px); }
+.btn-lateral span { font-size: 11px; font-weight: normal; opacity: 0.9; display: block; margin-bottom: 6px; letter-spacing: 1px; }
+
+.btn-categoria { background-color: #9b59b6; box-shadow: 0 5px 0 #8e44ad; cursor: default; }
+.btn-categoria:active { transform: none; }
+.btn-pausa { background-color: #f39c12; box-shadow: 0 5px 0 #d35400; }
+.btn-pausa.pausado { background-color: #e67e22; }
+.btn-reiniciar { background-color: var(--danger-color); box-shadow: 0 5px 0 #c0392b; }
+.btn-config { background-color: #7f8c8d; box-shadow: 0 5px 0 #606f70; }
+
+/* MODALES Y TOAST */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); align-items: center; justify-content: center; }
+.modal-contenido { background: var(--card-bg); color: var(--text-color); padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); width: 480px; box-sizing: border-box; }
+.modal-pequeno { width: 350px; text-align: center; }
+.modal-scrollable { max-height: 85vh; overflow-y: auto; }
+.modal-header-config { margin-bottom: 20px; text-align: left; }
+.modal-header-config h2 { margin: 0; }
+.divisor { border: 0; height: 1px; background: var(--border-color); margin: 20px 0; }
+
+.btn-modo-robo { width: 100%; padding: 12px; font-size: 14px; font-weight: bold; background-color: #34495e; color: white; border: none; border-radius: 6px; cursor: pointer; text-align: center; }
+.btn-modo-robo.activo { background-color: #e74c3c; }
+
+.selector-letras-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.letra-opcion { padding: 10px; background: var(--danger-color); color: white; text-align: center; font-weight: bold; border-radius: 6px; cursor: pointer; user-select: none; transition: 0.1s; font-size: 13px; }
+.letra-opcion.activa { background: var(--success-color); }
+
+.modal-botones-columna { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.modal-botones-fila { display: flex; gap: 10px; margin-top: 25px; justify-content: center; }
+.modal-botones-columna button, .modal-botones-fila button { padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
+.btn-guardar { background: var(--success-color); color: white; }
+.btn-peligro { background: var(--danger-color); color: white; }
+.btn-cancelar { background: #95a5a6; color: white; }
+
+.toast-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+.toast { background-color: var(--toast-bg); color: white; padding: 12px 22px; border-radius: 30px; font-weight: bold; font-size: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); opacity: 0; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+.toast.mostrar { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
