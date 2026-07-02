@@ -156,6 +156,7 @@ function renderizarJugadores() {
         const div = document.createElement('div');
         div.className = `etiqueta-jugador ${!estaVivo ? 'eliminado' : ''} ${esSuTurno ? 'turno-activo' : ''}`;
         div.style.backgroundColor = jugador.color;
+        div.setAttribute('data-pp', jugador.pasapalabras);
         
         const jugadorHub = salaActiva.jugadores.find(j => j.id === jugador.id);
         const puntosGlobales = jugadorHub ? jugadorHub.puntajeGlobal : 0;

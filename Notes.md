@@ -4,6 +4,9 @@ MATE
 Un juego q tira banderas de paises, fotos de peliculas, animales, etc y el jugador debe decir q es
 en una nota
 Eventos/peliculas/canciones y los jugadores deben aproximar el año en q pasó
+HUD
+En celular al volver de un juego no debe saltar la pestaña de salas
+
 
 TRIVIA
 Funcional
