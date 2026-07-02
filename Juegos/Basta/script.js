@@ -28,7 +28,7 @@ function alternarModoOscuro() {
     aplicarModoOscuroVisual();
 }
 
-// --- SISTEMA DE AUDIO (Web Audio API) ---
+// --- SISTEMA DE AUDIO ---
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function reproducirTick() {
@@ -117,7 +117,7 @@ const svgDOM = document.getElementById('roscoSVG');
 const htmlContenedor = document.getElementById('letrasHTMLContenedor');
 const btnPausaDOM = document.getElementById('btnPausa');
 
-// --- MATEMÁTICA Y RENDERIZADO DEL TABLERO ---
+// --- MATEMÁTICA Y RENDERIZADO DEL TABLERO (RESPONSIVE) ---
 const svgNS = "http://www.w3.org/2000/svg";
 const centro = 300; 
 
@@ -139,6 +139,10 @@ function dibujarTablero() {
     svgDOM.innerHTML = '';
     htmlContenedor.innerHTML = '';
     
+    // Convertimos el SVG en un lienzo 100% elástico
+    svgDOM.setAttribute('viewBox', '0 0 600 600');
+    svgDOM.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
     if (configJuego.formaTablero === 'cuadrado') relojDOM.classList.add('forma-cuadrada');
     else relojDOM.classList.remove('forma-cuadrada');
 
@@ -222,18 +226,16 @@ function dibujarDisco(letras) {
 }
 
 function dibujarCirculosFlotantes(letras) {
-    const radio = 260; 
     const anguloPorPorcion = (2 * Math.PI) / letras.length;
-
     letras.forEach((letra, index) => {
         const angulo = index * anguloPorPorcion - (Math.PI / 2);
-        const x = centro + radio * Math.cos(angulo);
-        const y = centro + radio * Math.sin(angulo);
+        const x = 50 + 42 * Math.cos(angulo);
+        const y = 50 + 42 * Math.sin(angulo);
 
         const div = document.createElement('div');
         div.className = 'letra-flotante forma-circulo';
-        div.style.left = `${x}px`;
-        div.style.top = `${y}px`;
+        div.style.left = `${x}%`;
+        div.style.top = `${y}%`;
         div.innerText = letra;
 
         if (!letrasDisponibles.includes(letra)) div.classList.add('usada');
@@ -243,39 +245,26 @@ function dibujarCirculosFlotantes(letras) {
 }
 
 function dibujarCuadrado(letras) {
-    const W = 520; // Ancho disponible
-    const H = 520; // Alto disponible
-    const marginOffset = 40; 
     const N = letras.length;
-    
-    // Matemática de Cuadrícula Perfecta
-    // Calculamos cuántos lugares por lado se necesitan para que cierre el cuadrado
     let lado = Math.ceil((N + 4) / 4);
     let cols = lado;
     let rows = lado;
-    
     let slots = [];
     
-    // Borde Superior (Izquierda a Derecha) -> Empieza la 'A' en (0,0)
     for (let c = 0; c < cols; c++) slots.push({c: c, r: 0});
-    // Borde Derecho (Arriba hacia Abajo)
     for (let r = 1; r < rows; r++) slots.push({c: cols - 1, r: r});
-    // Borde Inferior (Derecha a Izquierda)
     for (let c = cols - 2; c >= 0; c--) slots.push({c: c, r: rows - 1});
-    // Borde Izquierdo (Abajo hacia Arriba)
     for (let r = rows - 2; r > 0; r--) slots.push({c: 0, r: r});
 
-    // Mapeamos las letras a los slots generados. 
-    // Si sobran slots, quedarán vacíos al final del recorrido (lado izquierdo).
     letras.forEach((letra, index) => {
         const slot = slots[index];
-        const x = slot.c * (W / (cols - 1));
-        const y = slot.r * (H / (rows - 1));
+        const x = 8 + slot.c * (84 / (cols - 1));
+        const y = 8 + slot.r * (84 / (rows - 1));
 
         const div = document.createElement('div');
         div.className = 'letra-flotante forma-cuadrado';
-        div.style.left = (x + marginOffset) + 'px'; 
-        div.style.top = (y + marginOffset) + 'px';
+        div.style.left = `${x}%`; 
+        div.style.top = `${y}%`;
         div.innerText = letra;
 
         if (!letrasDisponibles.includes(letra)) div.classList.add('usada');
@@ -300,15 +289,24 @@ function renderizarJugadores() {
         const jugadorHub = salaActiva.jugadores.find(j => j.id === jugador.id);
         const puntosGlobales = jugadorHub ? jugadorHub.puntajeGlobal : 0;
         
+        const inicial = jugador.nombre.charAt(0).toUpperCase();
+        
         div.innerHTML = `
-            <div>
-                <div class="jugador-nombre">${jugador.nombre}</div>
-                <div class="jugador-pp">⏭️ Pasapalabras: ${jugador.pasapalabras}</div>
+            <div class="info-desktop">
+                <div>
+                    <div class="jugador-nombre">${jugador.nombre}</div>
+                    <div class="jugador-pp">⏭️ Pasapalabras: ${jugador.pasapalabras}</div>
+                </div>
+                <div class="jugador-stats">
+                    <div class="jugador-posicion">Orden #${index + 1}</div>
+                    <div class="jugador-puntaje">${jugador.puntosMesa} pts</div>
+                    <div class="jugador-global">Global: ${puntosGlobales} pts</div>
+                </div>
             </div>
-            <div class="jugador-stats">
-                <div class="jugador-posicion">Orden #${index + 1}</div>
-                <div class="jugador-puntaje">${jugador.puntosMesa} pts</div>
-                <div class="jugador-global">Global: ${puntosGlobales} pts</div>
+            
+            <div class="info-mobile">
+                <div class="jugador-inicial">${inicial}</div>
+                <div class="badge-pp">${jugador.pasapalabras}</div>
             </div>
         `;
         contenedor.appendChild(div);

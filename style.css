@@ -215,3 +215,64 @@ input:checked + .slider { background-color: var(--primary-color); }
 input:checked + .slider:before { transform: translateX(24px); }
 .slider.round { border-radius: 34px; }
 .slider.round:before { border-radius: 50%; }
+
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE CELULARES)
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* 1. Ajuste del tablero de juegos */
+    .contenido-juegos {
+        padding: 20px; /* Quitamos el margen izquierdo gigante de la PC */
+    }
+
+    /* Grilla de juegos: 2 columnas adaptables */
+    .grid-juegos {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto; 
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    /* Achicamos un poco los padding y textos de las tarjetas para que entren bien */
+    .tarjeta-juego {
+        padding: 20px 10px;
+    }
+    .tarjeta-juego h3 {
+        font-size: 16px;
+    }
+    .tarjeta-juego p {
+        font-size: 12px;
+    }
+    .juego-icono {
+        font-size: 32px;
+    }
+
+    /* 2. Menú de Salas desplegable desde arriba */
+    .sidebar-sala {
+        width: 100%; /* Ocupa todo el ancho de la pantalla */
+        height: calc(100vh - 60px); /* Llega hasta abajo */
+        border-right: none;
+        border-bottom: 2px solid var(--border-color);
+        /* Al estar visible, su posición Y es 0 */
+        transform: translateY(0); 
+    }
+
+    .sidebar-sala.oculta {
+        /* Se esconde hacia arriba (detrás del navbar) en vez de hacia la izquierda */
+        transform: translateY(-150%);
+    }
+
+    /* 3. Ajuste de Modales para pantallas chicas */
+    .modal-contenido {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    /* Reacomodamos la paleta de colores para que no se desborden los círculos */
+    .paleta-container {
+        grid-template-columns: repeat(6, 1fr); 
+        gap: 10px;
+    }
+}

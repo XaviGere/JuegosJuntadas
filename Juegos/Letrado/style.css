@@ -139,3 +139,75 @@ input[type="number"], input[type="text"], select { padding: 10px; border-radius:
 .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
 input:checked + .slider { background-color: var(--primary-color); }
 input:checked + .slider:before { transform: translateX(24px); }
+
+
+
+@media (max-width: 768px) {
+    /* 1. Layout Base */
+    .layout-juego {
+        display: flex !important; flex-direction: column !important;
+        height: auto !important; min-height: calc(100vh - 60px) !important;
+        overflow-y: auto !important; overflow-x: hidden !important;
+    }
+
+    /* 2. Botones Arriba */
+    .panel-lateral {
+        order: 1 !important; width: 100% !important;
+        display: flex !important; flex-direction: row !important; flex-wrap: wrap !important;
+        padding: 10px !important; gap: 5px !important; border-bottom: 1px solid var(--border-color) !important;
+    }
+    .btn-categoria { flex: 1 1 100% !important; padding: 8px !important; font-size: 14px !important; }
+    .btn-lateral { flex: 1 !important; padding: 8px 5px !important; font-size: 10px !important; }
+
+    /* 3. Tablero Medio: FORZAMOS CUADRADO PERFECTO */
+    .panel-tablero {
+        order: 2 !important; width: 100% !important;
+        padding: 10px !important;
+    }
+    
+    .ruleta-contenedor { 
+        width: 100% !important; max-width: 300px !important; 
+        aspect-ratio: 1 !important; /* Mantiene la proporción 1:1 siempre */
+        margin: 0 auto !important; 
+    }
+
+    .circulo-letrado {
+        width: 100% !important; height: 100% !important; /* Se ajusta al contenedor cuadrado */
+        max-width: 320px !important; max-height: 320px !important; border-radius: 50% !important; border-width: 4px !important;
+    }
+
+    .letra-gigante { font-size: 100px !important; }
+    .timer-letrado { font-size: 30px !important; }
+
+    .btn-pp-flotante { 
+        margin-top: 10px !important; padding: 10px 20px !important; font-size: 16px !important; 
+    }
+
+    /* 4. Jugadores Abajo: Quitamos textos basura y acomodamos */
+    .panel-jugadores {
+        order: 3 !important; width: 100% !important;
+        padding: 10px !important; border-top: 1px solid var(--border-color) !important;
+    }
+    
+    /* Sacamos el título y subtítulo */
+    .panel-jugadores h2, .panel-jugadores .subtitulo { display: none !important; }
+    
+    .lista-turnos {
+        display: grid !important; grid-template-columns: repeat(3, 1fr) !important; 
+        gap: 5px !important; width: 100% !important;
+    }
+    
+    .etiqueta-jugador {
+        padding: 6px 2px !important; 
+        border-radius: 10px !important; /* Suavemente redondeado */
+        display: flex !important; 
+        flex-direction: column !important;
+        justify-content: center !important; 
+        align-items: center !important;
+        font-size: 10px !important;
+    }
+    
+    .jugador-stats { display: none !important; }
+    .jugador-nombre { font-size: 11px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+    .jugador-pp { display: block !important; font-size: 9px !important; opacity: 0.9; }
+}

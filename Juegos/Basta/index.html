@@ -20,15 +20,17 @@
 
     <div class="layout-juego">
         
+        <!-- PANEL IZQUIERDO EN PC (ORDER 3 EN CELULAR) -->
         <aside class="panel-jugadores">
             <h2>Orden de Juego</h2>
             <p class="subtitulo">Acierta una letra o usa Pasapalabra.</p>
             <div id="listaJugadoresJuego" class="lista-turnos"></div>
         </aside>
 
+        <!-- PANEL CENTRAL EN PC (ORDER 2 EN CELULAR) -->
         <main class="panel-tablero">
             <div class="ruleta-contenedor" id="ruletaContenedor">
-                <svg id="roscoSVG" width="600" height="600" viewBox="0 0 600 600"></svg>
+                <svg id="roscoSVG"></svg>
                 
                 <div id="letrasHTMLContenedor"></div>
                 
@@ -36,6 +38,7 @@
             </div>
         </main>
         
+        <!-- PANEL DERECHO EN PC (ORDER 1 EN CELULAR) -->
         <aside class="panel-lateral">
             <div class="btn-lateral btn-categoria" onclick="tirarCategoria()">
                 <span>CATEGORÍA</span>
@@ -60,6 +63,7 @@
 
     </div>
 
+    <!-- MODALES Y TOASTS -->
     <div id="toastContainer" class="toast-container"></div>
 
     <div class="modal-overlay" id="modalConfirm">

@@ -39,6 +39,10 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; 
 .etiqueta-jugador { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-radius: 8px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s, opacity 0.2s; }
 .etiqueta-jugador.eliminado { opacity: 0.3; filter: grayscale(100%); transform: scale(0.95); }
 .etiqueta-jugador.turno-activo { transform: scale(1.05); box-shadow: 0 0 15px rgba(0,0,0,0.3); border: 2px solid white; }
+
+.info-desktop { display: flex; justify-content: space-between; width: 100%; align-items: center; }
+.info-mobile { display: none; } /* Oculto en PC */
+
 .jugador-nombre { font-size: 16px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
 .jugador-pp { font-size: 12px; font-weight: normal; margin-top: 4px; }
 .jugador-stats { text-align: right; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
@@ -46,10 +50,29 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; 
 .jugador-puntaje { font-size: 16px; font-weight: bold;}
 .jugador-global { font-size: 11px; opacity: 0.8; margin-top: 2px; }
 
-/* TABLERO CENTRAL AUMENTADO */
+/* TABLERO CENTRAL */
 .panel-tablero { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; }
-.ruleta-contenedor { position: relative; width: 600px; height: 600px; }
-#roscoSVG { position: absolute; top: 0; left: 0; z-index: 1; filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.1)); }
+
+/* EL LIENZO ELÁSTICO CUADRADO */
+.ruleta-contenedor { 
+    position: relative; 
+    width: 100%; 
+    max-width: 550px; 
+    aspect-ratio: 1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin: 0 auto;
+}
+
+#roscoSVG { 
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    z-index: 1; 
+    filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.1)); 
+}
+
 #letrasHTMLContenedor { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
 
 .segmento { fill: var(--success-color); stroke: var(--gap-rosco); stroke-width: 4px; stroke-linejoin: round; cursor: pointer; transition: fill 0.2s; }
@@ -64,26 +87,24 @@ body.dark-mode .usada .segmento { fill: #455a64; stroke: #37474f; }
     font-weight: bold; cursor: pointer; transform: translate(-50%, -50%); box-shadow: 0 4px 0 rgba(0,0,0,0.15); transition: all 0.1s; pointer-events: auto;
 }
 .letra-flotante:active { transform: translate(-50%, calc(-50% + 4px)); box-shadow: 0 0 0 rgba(0,0,0,0.1); }
-
 .letra-flotante.forma-circulo { border-radius: 50%; width: 64px; height: 64px; font-size: 28px; }
 .letra-flotante.forma-cuadrado { border-radius: 8px; width: 55px; height: 55px; font-size: 24px; }
-
 .letra-flotante.usada { background-color: #bdc3c7; box-shadow: 0 2px 0 #95a5a6; color: #7f8c8d; }
 body.dark-mode .letra-flotante.usada { background-color: #455a64; box-shadow: 0 2px 0 #37474f; color: #b0bec5; }
 .letra-flotante.usada:active { transform: translate(-50%, calc(-50% + 2px)); }
 
 /* PULSADOR CENTRAL */
 .reloj {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    position: absolute; z-index: 10;
     width: 320px; height: 320px; background-color: #2c3e50; color: white;
     border-radius: 50%; display: flex; align-items: center; justify-content: center;
     font-size: 110px; font-weight: bold; cursor: pointer;
     box-shadow: inset 0 -12px 0 rgba(0,0,0,0.2), 0 10px 25px rgba(0,0,0,0.3);
-    user-select: none; transition: background-color 0.3s, transform 0.1s, border-radius 0.3s, width 0.3s, height 0.3s; z-index: 10;
+    user-select: none; transition: background-color 0.3s, transform 0.1s, border-radius 0.3s, width 0.3s, height 0.3s; 
 }
 .reloj.forma-cuadrada { border-radius: 20px; width: 360px; height: 360px; font-size: 120px; }
-.reloj:active { transform: translate(-50%, -46%); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.3); }
-.reloj.sin-pasapalabra:active { transform: translate(-50%, -50%); box-shadow: inset 0 -12px 0 rgba(0,0,0,0.2), 0 10px 25px rgba(0,0,0,0.3); }
+.reloj:active { transform: translateY(4%); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.3); }
+.reloj.sin-pasapalabra:active { transform: none; box-shadow: inset 0 -12px 0 rgba(0,0,0,0.2), 0 10px 25px rgba(0,0,0,0.3); }
 
 /* PANEL DERECHO */
 .panel-lateral { width: 280px; padding: 20px; background-color: var(--card-bg); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 15px; }
@@ -135,7 +156,6 @@ input[type="number"], input[type="text"], select { padding: 10px; border-radius:
 .btn-guardar { background: var(--success-color); color: white; }
 .btn-peligro { background: var(--danger-color); color: white; }
 .btn-cancelar { background: #95a5a6; color: white; }
-body.dark-mode .btn-cancelar { background: #455a64; }
 
 .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
 .switch input { opacity: 0; width: 0; height: 0; }
@@ -143,3 +163,145 @@ body.dark-mode .btn-cancelar { background: #455a64; }
 .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
 input:checked + .slider { background-color: var(--primary-color); }
 input:checked + .slider:before { transform: translateX(24px); }
+
+/* =========================================
+   MEDIA QUERIES BASTA! (RESPONSIVE CELULARES)
+   ========================================= */
+@media (max-width: 768px) {
+    
+    .navbar h1 { font-size: 16px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .nav-izq { max-width: 65%; }
+
+    /* LAYOUT A COLUMNA TOTALMENTE ELÁSTICA */
+    .layout-juego {
+        display: flex !important;
+        flex-direction: column !important;
+        height: calc(100vh - 60px) !important;
+        overflow: hidden !important; /* Mantenemos todo en 1 pantalla sin scroll molesto */
+    }
+
+    /* 1. CONTROLES ARRIBA (Order 1) */
+    .panel-lateral {
+        order: 1 !important;
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        padding: 10px !important;
+        gap: 5px !important;
+        border-left: none !important;
+        border-bottom: 1px solid var(--border-color) !important;
+        height: auto !important;
+    }
+
+    .btn-categoria { flex: 1 1 100% !important; padding: 12px !important; font-size: 16px !important; margin-bottom: 5px !important; }
+    .btn-lateral { flex: 1 !important; padding: 10px 5px !important; font-size: 11px !important; }
+
+    /* 2. TABLERO MEDIO (Order 2) */
+    .panel-tablero {
+        order: 2 !important;
+        flex: 1 !important; /* Absorbe el espacio entre los controles y los jugadores */
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 10px !important;
+    }
+
+    .ruleta-contenedor {
+        width: 100% !important;
+        max-width: 320px !important;
+        height: 100% !important;
+        max-height: 320px !important; /* Forzamos un cuadrado perfecto máximo */
+        margin: 0 auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        position: relative !important;
+    }
+
+    #roscoSVG, .panel-tablero svg {
+        width: 100% !important;
+        height: 100% !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    #contador.reloj, .boton-centro {
+        width: 110px !important;
+        height: 110px !important;
+        min-width: 110px !important;
+        min-height: 110px !important;
+        border-radius: 50% !important;
+        font-size: 40px !important;
+        position: relative !important;
+        z-index: 10 !important;
+        transform: none !important;
+    }
+
+    /* 3. JUGADORES ABAJO (Order 3) */
+    .panel-jugadores {
+        order: 3 !important;
+        width: 100% !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important; /* Permitimos que se acomoden si son muchos */
+        justify-content: center !important;
+        padding: 15px 10px !important;
+        gap: 15px !important;
+        border-right: none !important;
+        border-top: 1px solid var(--border-color) !important;
+    }
+
+    .panel-jugadores h2, .panel-jugadores .subtitulo {
+        display: none !important; /* Volamos el título */
+    }
+
+    .lista-turnos {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 15px !important;
+        width: 100% !important;
+    }
+    
+    /* El Círculo del Jugador Mágico */
+    .etiqueta-jugador {
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        justify-content: center !important;
+        align-items: center !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2) !important;
+        flex: 0 0 auto !important;
+    }
+    
+    .etiqueta-jugador.turno-activo {
+        transform: scale(1.15) !important;
+        box-shadow: 0 0 15px white !important;
+        border: 3px solid white !important;
+    }
+
+    .info-desktop { display: none !important; }
+    .info-mobile { 
+        display: flex !important; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+        position: relative; 
+        width: 100%; 
+        height: 100%; 
+    }
+    
+    .jugador-inicial { font-size: 22px; font-weight: bold; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+    .badge-pp { 
+        position: absolute; top: -5px; right: -5px; background: #f39c12; color: white; 
+        border: 2px solid white; border-radius: 50%; width: 22px; height: 22px; 
+        font-size: 12px; font-weight: bold; display: flex; justify-content: center; align-items: center; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3); 
+    }
+}
