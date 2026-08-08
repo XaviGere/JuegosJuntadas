@@ -1,0 +1,33 @@
+# Reglas de Desarrollo para el Agente Devin - Juegos-Hub
+
+## Idioma y Comentarios
+- Siempre responder en español a menos que se especifique lo contrario
+- Comentar el código siempre en español a menos que se especifique lo contrario
+
+## Estructura del Proyecto
+- El frontend está en `src/frontend/` con HTML, CSS y JavaScript
+- Los juegos están en `src/frontend/Juegos/` (Basta, Letrado, Trivia, Juego4, Juego5)
+- La estructura para backend futuro está en `src/api/`, `src/core/`, `src/games/`
+- Los tests están en `tests/`
+- La documentación está en `docs/`
+
+## Persistencia de Datos
+- Actualmente se usa localStorage para persistencia
+- Claves de localStorage: `arcade_salas`, `arcade_sala_activa`, `arcade_config`, `arcade_modo_oscuro`
+- No implementar base de datos aún - mantener localStorage
+
+## Funcionalidades de Juegos
+- NO implementar mejoras de game design por ahora
+- Mantener las funcionalidades actuales de Basta, Letrado y Trivia
+- Juego4 y Juego5 son placeholders vacíos por ahora
+
+## Desarrollo
+- Seguir la arquitectura modular propuesta
+- Usar variables CSS para theming (modo oscuro/claro)
+- Mantener responsive design mobile-first
+- No agregar dependencias innecesarias
+
+## Testing
+- La estructura de tests está preparada pero no implementada completamente
+- Usar pytest para tests cuando se implementen
+- Mantener tests simples y enfocados en funcionalidad crítica
