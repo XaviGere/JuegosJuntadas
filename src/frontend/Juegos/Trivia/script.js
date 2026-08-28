@@ -1,3 +1,81 @@
+// --- CIERRE DE MODALES AL CLICKEAR FUERA DEL OVERLAY ---
+// Clic en el fondo (.modal-overlay) cierra el modal sin aplicar cambios.
+// En #modalResultado, cerrar por overlay equivale a pulsar "Continuar" (ejecuta callback).
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.style.display = 'none';
+                // Si es el modal de resultado, disparar el botón Continuar
+                if (overlay.id === 'modalResultado') {
+                    const btn = document.getElementById('btnContinuarResultado');
+                    if (btn) btn.click();
+                }
+            }
+        });
+    });
+});
+
+// --- SISTEMA DE REGLAS ---
+function mostrarReglas(juego, reglasHTML) {
+    const modal = document.getElementById('modalReglas');
+    const titulo = document.getElementById('tituloReglas');
+    const contenido = document.getElementById('contenidoReglas');
+    const checkNoMostrar = document.getElementById('checkNoMostrarReglas');
+    
+    // Verificar si usuario eligió no mostrar
+    const claveNoMostrar = `no_mostrar_reglas_${juego}`;
+    if (localStorage.getItem(claveNoMostrar) === 'true') {
+        return; // No mostrar
+    }
+    
+    titulo.innerText = `📜 Reglas - ${juego}`;
+    contenido.innerHTML = reglasHTML;
+    checkNoMostrar.checked = false;
+    
+    modal.style.display = 'flex';
+    
+    // Guardar preferencia
+    checkNoMostrar.onchange = () => {
+        localStorage.setItem(claveNoMostrar, checkNoMostrar.checked);
+    };
+}
+
+function cerrarReglas() {
+    document.getElementById('modalReglas').style.display = 'none';
+}
+
+const reglasTrivia = `
+    <h3>🎯 Objetivo</h3>
+    <p>Responder correctamente preguntas de cultura general para acumular puntos.</p>
+
+    <h3>⏱️ Mecánicas</h3>
+    <ul>
+        <li>Tenés <strong>30 segundos</strong> por pregunta.</li>
+        <li>Las preguntas se seleccionan por temática aleatoria.</li>
+        <li>El equipo dice su respuesta y luego se revela la correcta.</li>
+        <li>El moderador marca si la respuesta fue correcta o incorrecta.</li>
+    </ul>
+
+    <h3>🎚️ Sistema de Dificultad</h3>
+    <ul>
+        <li><strong>Fácil:</strong> 100 puntos (preguntas básicas)</li>
+        <li><strong>Medio:</strong> 150 puntos (preguntas intermedias)</li>
+        <li><strong>Difícil:</strong> 200 puntos (preguntas complejas)</li>
+    </ul>
+
+    <h3>⚙️ Modo Dificultad Incremental</h3>
+    <ul>
+        <li>Si se activa, la dificultad aumenta cada 3 preguntas.</li>
+    </ul>
+
+    <h3>🏆 Puntuación</h3>
+    <ul>
+        <li>Respuesta correcta: Puntos según dificultad</li>
+        <li>Respuesta incorrecta: Sin puntos</li>
+    </ul>
+`;
+
 // --- ESTADO GLOBAL Y CONEXIÓN CON EL HUB ---
 let salasHub = JSON.parse(localStorage.getItem('arcade_salas')) || [];
 let idSalaActiva = localStorage.getItem('arcade_sala_activa');
@@ -13,35 +91,70 @@ if (localStorage.getItem('arcade_modo_oscuro') === 'true') {
     document.body.classList.add('dark-mode');
 }
 
-// --- BASE DE DATOS DE PREGUNTAS ---
-const dbPreguntas = [
-    { tematica: "Videojuegos", pregunta: "En Stardew Valley, ¿cómo se llama el desarrollador y creador único del juego?", respuesta: "ConcernedApe (o Eric Barone)" },
-    { tematica: "Videojuegos", pregunta: "En League of Legends, ¿cuántos carriles principales (lanes) tiene el mapa clásico de la Grieta del Invocador?", respuesta: "Tres (Top, Mid, Bot)" },
-    { tematica: "Ciencia y Tecnología", pregunta: "¿Qué significa la sigla 'CNN' en el contexto del Machine Learning y la visión por computadora?", respuesta: "Red Neuronal Convolucional" },
-    { tematica: "Ciencia y Tecnología", pregunta: "¿Qué plataforma de datos basada en la nube utiliza un copo de nieve como logotipo?", respuesta: "Snowflake" },
-    { tematica: "Gastronomía", pregunta: "¿Qué microorganismos son los principales responsables de la fermentación del vino?", respuesta: "Las levaduras (Saccharomyces cerevisiae)" },
-    { tematica: "Gastronomía", pregunta: "¿Qué corte de cerdo se utiliza tradicionalmente en Argentina para curar y hacer bondiola?", respuesta: "El cuello o aguja de cerdo" },
-    { tematica: "Inversiones y Finanzas", pregunta: "¿Qué histórica empresa argentina, clave en el sector energético, cotiza bajo las siglas YPF?", respuesta: "Yacimientos Petrolíferos Fiscales" },
-    { tematica: "Inversiones y Finanzas", pregunta: "¿Qué empresa argentina es la principal productora de cemento del país y cotiza en bolsa?", respuesta: "Loma Negra" },
-    { tematica: "Cultura General", pregunta: "¿Cuál es la capital de la provincia de Santa Fe?", respuesta: "Santa Fe (Ciudad)" },
-    { tematica: "Cultura General", pregunta: "¿Cómo se llama la parte metálica de la hoja de un cuchillo que se inserta dentro del mango?", respuesta: "Espiga (o nervio)" },
-    { tematica: "Espacio", pregunta: "¿Qué programa de satélites de observación de la Tierra es gestionado por la NASA y el USGS?", respuesta: "Landsat" },
-    { tematica: "Espacio", pregunta: "¿Cuál es el planeta más grande de nuestro sistema solar?", respuesta: "Júpiter" }
-];
-
 // --- ESTADOS DE JUEGO ---
 let configJuego = {
     rondas: 3,
-    modoRobo: false,
-    categoriasActivas: ["Videojuegos", "Ciencia y Tecnología", "Gastronomía", "Inversiones y Finanzas", "Cultura General", "Espacio"]
+    dificultadInicial: "facil", // fácil, medio, difícil
+    modoDificultadIncremental: false,
+    categoriasActivas: ["Cultura General", "Ciencia", "Historia", "Geografía", "Deportes", "Arte", "Música", "Literatura", "Cine", "Tecnología"],
+    dificultadesActivas: ["facil", "medio", "dificil"] // Filtro de dificultades
 };
 const todasLasTematicasPosibles = [...configJuego.categoriasActivas];
 
-let equipos = []; 
-let preguntasDisponibles = [...dbPreguntas];
+// --- BASE DE DATOS DE PREGUNTAS ---
+let dbPreguntas = [];
+
+// Cargar preguntas: prioriza variable global (script tag), fallback a fetch
+async function cargarPreguntas() {
+    // 1. Intentar usar la variable global cargada via <script src="preguntas.js">
+    if (window.PREGUNTAS_TRIVIA && Array.isArray(window.PREGUNTAS_TRIVIA) && window.PREGUNTAS_TRIVIA.length > 0) {
+        dbPreguntas = window.PREGUNTAS_TRIVIA;
+        console.log('Preguntas cargadas (script tag):', dbPreguntas.length);
+        inicializarJuego();
+        return;
+    }
+
+    // 2. Fallback a fetch (sirve si se usa un servidor http)
+    try {
+        const response = await fetch('preguntas.json');
+        if (!response.ok) throw new Error('Error cargando archivo');
+        dbPreguntas = await response.json();
+        console.log('Preguntas cargadas (fetch):', dbPreguntas.length);
+        inicializarJuego();
+    } catch (error) {
+        console.error('Error cargando preguntas:', error);
+        // Fallback mínimo si todo falla
+        dbPreguntas = [
+            { tematica: "Cultura General", pregunta: "¿Cuál es la capital de Francia?", respuesta: "París", dificultad: "facil", puntos: 100 },
+            { tematica: "Ciencia", pregunta: "¿Cuál es el símbolo químico del agua?", respuesta: "H2O", dificultad: "facil", puntos: 100 },
+            { tematica: "Historia", pregunta: "¿En qué año llegó el hombre a la Luna?", respuesta: "1969", dificultad: "medio", puntos: 150 }
+        ];
+        inicializarJuego();
+    }
+}
+
+// Inicializar el juego después de cargar preguntas
+function inicializarJuego() {
+    preguntasDisponibles = [...dbPreguntas];
+    console.log('Juego inicializado con', preguntasDisponibles.length, 'preguntas disponibles');
+}
+
+// Mostrar reglas al cargar
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarReglas('Trivia', reglasTrivia);
+});
+
+// Cargar preguntas al inicio
+cargarPreguntas();
+
+let equipos = [];
+let preguntasDisponibles = []; // Se inicializa después de cargar preguntas
+let preguntasUsadasEnPartida = []; // Track de preguntas usadas en esta partida
 let rondaActual = 1;
 let turnoEquipoIndex = 0;
 let tematicaRonda = "";
+let dificultadActual = "facil"; // Dificultad actual en juego
+let numeroPreguntaGlobal = 0; // Contador global de preguntas
 
 let enJuego = false;
 let juegoPausado = false;
@@ -59,6 +172,83 @@ function mezclarArray(array) {
         [arrayCopia[i], arrayCopia[j]] = [arrayCopia[j], arrayCopia[i]];
     }
     return arrayCopia;
+}
+
+function obtenerPreguntaPorDificultad(dificultadDeseada) {
+    let preguntasFiltradas = preguntasDisponibles.filter(p => 
+        p.dificultad === dificultadDeseada &&
+        configJuego.dificultadesActivas.includes(p.dificultad)
+    );
+    
+    if (preguntasFiltradas.length === 0) {
+        // Fallback a otras dificultades si no hay de la deseada
+        preguntasFiltradas = preguntasDisponibles.filter(p => 
+            configJuego.dificultadesActivas.includes(p.dificultad)
+        );
+    }
+    
+    if (preguntasFiltradas.length === 0) {
+        // Último fallback: cualquier pregunta disponible
+        preguntasFiltradas = preguntasDisponibles;
+    }
+    
+    return preguntasFiltradas[Math.floor(Math.random() * preguntasFiltradas.length)];
+}
+
+function calcularDificultadActual(numeroPregunta) {
+    if (!configJuego.modoDificultadIncremental) {
+        return configJuego.dificultadInicial;
+    }
+    
+    const preguntasPorNivel = 3; // Cada 3 preguntas aumenta dificultad
+    const nivel = Math.floor(numeroPregunta / preguntasPorNivel);
+    const dificultades = ["facil", "medio", "dificil"];
+    const indiceInicial = dificultades.indexOf(configJuego.dificultadInicial);
+    
+    const nuevoIndice = Math.min(indiceInicial + nivel, dificultades.length - 1);
+    return dificultades[nuevoIndice];
+}
+
+function obtenerPreguntaConDificultad(numeroPregunta) {
+    dificultadActual = calcularDificultadActual(numeroPregunta);
+    
+    // Filtrar por dificultad y por preguntas ya usadas
+    let preguntasFiltradas = preguntasDisponibles.filter(p => 
+        p.dificultad === dificultadActual &&
+        configJuego.dificultadesActivas.includes(p.dificultad) &&
+        !preguntasUsadasEnPartida.includes(p.pregunta)
+    );
+    
+    if (preguntasFiltradas.length === 0) {
+        // Fallback: permitir repeticiones si no hay preguntas sin repetir
+        preguntasFiltradas = preguntasDisponibles.filter(p => 
+            p.dificultad === dificultadActual &&
+            configJuego.dificultadesActivas.includes(p.dificultad)
+        );
+        
+        if (preguntasFiltradas.length > 0) {
+            mostrarToast("¡Se reiniciaron las preguntas disponibles!", 2000);
+        }
+    }
+    
+    if (preguntasFiltradas.length === 0) {
+        // Último fallback: cualquier pregunta disponible
+        preguntasFiltradas = preguntasDisponibles.filter(p => 
+            !preguntasUsadasEnPartida.includes(p.pregunta)
+        );
+    }
+    
+    if (preguntasFiltradas.length === 0) {
+        // Último caso absoluto: cualquier pregunta
+        preguntasFiltradas = preguntasDisponibles;
+    }
+    
+    const pregunta = preguntasFiltradas[Math.floor(Math.random() * preguntasFiltradas.length)];
+    
+    // Marcar como usada
+    preguntasUsadasEnPartida.push(pregunta.pregunta);
+    
+    return pregunta;
 }
 
 function mostrarToast(mensaje, duracion = 3000) {
@@ -313,6 +503,18 @@ function iniciarTurno() {
     juegoPausado = false;
     esperandoValidacion = false;
     
+    // Verificar que hay preguntas disponibles
+    if (preguntasDisponibles.length === 0) {
+        console.error('No hay preguntas disponibles');
+        mostrarToast('Error: No hay preguntas disponibles. Recargando...', 3000);
+        // Intentar recargar
+        preguntasDisponibles = [...dbPreguntas];
+        if (preguntasDisponibles.length === 0) {
+            mostrarToast('Error crítico: No se pueden cargar las preguntas.', 5000);
+            return;
+        }
+    }
+    
     const btnPausa = document.getElementById('btnPausa');
     btnPausa.querySelector('div').innerText = "Pausar Juego";
     btnPausa.classList.remove('pausado');
@@ -323,25 +525,23 @@ function iniciarTurno() {
     document.getElementById('nombreEquipoTurno').innerText = equipoActual.nombre;
     document.getElementById('nombreEquipoTurno').style.color = equipoActual.color;
 
-    let posiblesPreguntas = tematicaRonda ? 
-        preguntasDisponibles.filter(p => p.tematica === tematicaRonda) : 
-        preguntasDisponibles.filter(p => configJuego.categoriasActivas.includes(p.tematica));
-
-    if (posiblesPreguntas.length === 0) posiblesPreguntas = preguntasDisponibles;
-
-    if (posiblesPreguntas.length === 0) {
+    // Usar el nuevo sistema de dificultades
+    preguntaActualObj = obtenerPreguntaConDificultad(numeroPreguntaGlobal);
+    numeroPreguntaGlobal++;
+    
+    if (!preguntaActualObj) {
         mostrarToast("No quedan más preguntas. Fin del juego.");
         finalizarPartida();
         return;
     }
-
-    const indexAleatorio = Math.floor(Math.random() * posiblesPreguntas.length);
-    preguntaActualObj = posiblesPreguntas[indexAleatorio];
     
+    // Eliminar del pool general
     const dbIndex = preguntasDisponibles.findIndex(p => p.pregunta === preguntaActualObj.pregunta);
-    preguntasDisponibles.splice(dbIndex, 1);
+    if (dbIndex !== -1) {
+        preguntasDisponibles.splice(dbIndex, 1);
+    }
 
-    document.getElementById('etiquetaTematica').innerText = preguntaActualObj.tematica;
+    document.getElementById('etiquetaTematica').innerText = `${preguntaActualObj.tematica} - ${preguntaActualObj.dificultad.toUpperCase()}`;
     document.getElementById('textoPregunta').innerText = preguntaActualObj.pregunta;
     
     document.getElementById('zonaValidacion').style.display = 'none';
@@ -396,20 +596,91 @@ function calificarRespuesta(esCorrecta) {
     document.getElementById('controlesValidacion').style.display = 'none';
 
     if (esCorrecta) {
-        equipos[turnoEquipoIndex].puntos += 100;
-        mostrarToast(`¡Correcto! +100 pts para el ${equipos[turnoEquipoIndex].nombre}`, 1800);
+        equipos[turnoEquipoIndex].puntos += preguntaActualObj.puntos;
+        mostrarToast(`¡Correcto! +${preguntaActualObj.puntos} pts para el ${equipos[turnoEquipoIndex].nombre}`, 1800);
     } else {
         mostrarToast(`Incorrecto. Sin puntos.`, 1800);
     }
-
+    pasarSiguienteTurno();
     renderizarPanelEquipos();
+}
 
+function pasarSiguienteTurno() {
     turnoEquipoIndex++;
     if (turnoEquipoIndex >= equipos.length) {
         rondaActual++;
-        setTimeout(prepararRonda, 1500); 
+        setTimeout(prepararRonda, 1500);
     } else {
         setTimeout(iniciarTurno, 1500);
+    }
+}
+
+// --- CONFIGURACIÓN ---
+function toggleDificultadIncremental() {
+    const isChecked = document.getElementById('checkDificultadIncremental').checked;
+    const divDificultadInicial = document.getElementById('divDificultadInicial');
+    if (divDificultadInicial) divDificultadInicial.style.display = isChecked ? 'block' : 'none';
+}
+
+function abrirConfigJuego() {
+    // Pausar el juego si está activo
+    let estabaPausado = juegoPausado;
+
+    if (enJuego && !juegoPausado && !esperandoValidacion) {
+        alternarPausa();
+    }
+
+    // Inicializar config temporal de temáticas
+    configTemporal.categorias = [...configJuego.categoriasActivas];
+
+    document.getElementById('modalConfigJuego').style.display = 'flex';
+    document.getElementById('inputRondas').value = configJuego.rondas;
+    document.getElementById('selectDificultadInicial').value = configJuego.dificultadInicial;
+    document.getElementById('checkDificultadIncremental').checked = configJuego.modoDificultadIncremental;
+    document.getElementById('checkFacil').checked = configJuego.dificultadesActivas.includes('facil');
+    document.getElementById('checkMedio').checked = configJuego.dificultadesActivas.includes('medio');
+    document.getElementById('checkDificil').checked = configJuego.dificultadesActivas.includes('dificil');
+    toggleDificultadIncremental();
+    renderizarTematicasConfig();
+
+    // Guardar estado de pausa para reanudar al cerrar
+    document.getElementById('modalConfigJuego').dataset.estabaPausado = estabaPausado;
+}
+
+function guardarConfigJuego() {
+    configJuego.rondas = parseInt(document.getElementById('inputRondas').value) || 3;
+    configJuego.dificultadInicial = document.getElementById('selectDificultadInicial').value;
+    configJuego.modoDificultadIncremental = document.getElementById('checkDificultadIncremental').checked;
+    configJuego.dificultadesActivas = [];
+
+    if (document.getElementById('checkFacil').checked) configJuego.dificultadesActivas.push('facil');
+    if (document.getElementById('checkMedio').checked) configJuego.dificultadesActivas.push('medio');
+    if (document.getElementById('checkDificil').checked) configJuego.dificultadesActivas.push('dificil');
+
+    configJuego.categoriasActivas = [...configTemporal.categorias];
+
+    // Reanudar el juego si estaba activo
+    const modal = document.getElementById('modalConfigJuego');
+    const estabaPausado = modal.dataset.estabaPausado === 'true';
+    modal.style.display = 'none';
+
+    if (enJuego && !estabaPausado && !esperandoValidacion) {
+        alternarPausa();
+    }
+
+    document.getElementById('rondaDisplay').innerText = `Ronda ${rondaActual} / ${configJuego.rondas}`;
+    mostrarToast('Configuración guardada.', 2000);
+}
+
+function cerrarConfigJuego() {
+    const modal = document.getElementById('modalConfigJuego');
+    const estabaPausado = modal.dataset.estabaPausado === 'true';
+    
+    modal.style.display = 'none';
+    
+    // Reanudar el juego si estaba activo y no estaba pausado manualmente
+    if (enJuego && !estabaPausado && !esperandoValidacion) {
+        alternarPausa();
     }
 }
 
@@ -466,35 +737,8 @@ function pedirReinicioCompleto() {
     });
 }
 
-// --- MODAL CONFIGURACIÓN ---
-let configTemporal = { categorias: [], rondas: 3, robo: false };
-
-function abrirConfigJuego() {
-    if (enJuego && !juegoPausado && !esperandoValidacion) alternarPausa();
-    document.getElementById('modalConfigJuego').style.display = 'flex';
-    document.getElementById('inputRondas').value = configJuego.rondas;
-    configTemporal.categorias = [...configJuego.categoriasActivas];
-    configTemporal.rondas = configJuego.rondas;
-    configTemporal.robo = configJuego.modoRobo;
-    actualizarBotonRoboUI();
-    renderizarTematicasConfig();
-}
-
-function alternarModoRoboPlaceholder() {
-    configTemporal.robo = !configTemporal.robo;
-    actualizarBotonRoboUI();
-}
-
-function actualizarBotonRoboUI() {
-    const btn = document.getElementById('btnModoRobo');
-    if (configTemporal.robo) {
-        btn.innerText = "💥 Modo Robo: HABILITADO";
-        btn.classList.add('activo');
-    } else {
-        btn.innerText = "💥 Modo Robo: Deshabilitado";
-        btn.classList.remove('activo');
-    }
-}
+// --- MODAL CONFIGURACIÓN: temáticas ---
+let configTemporal = { categorias: [] };
 
 function renderizarTematicasConfig() {
     const grid = document.getElementById('gridTematicasConfig');
@@ -515,19 +759,6 @@ function renderizarTematicasConfig() {
         };
         grid.appendChild(div);
     });
-}
-
-function guardarConfigJuego() {
-    if (configTemporal.categorias.length === 0) {
-        mostrarToast("Seleccioná al menos 1 temática.");
-        return;
-    }
-    configJuego.rondas = parseInt(document.getElementById('inputRondas').value) || 3;
-    configJuego.categoriasActivas = [...configTemporal.categorias];
-    configJuego.modoRobo = configTemporal.robo;
-    document.getElementById('modalConfigJuego').style.display = 'none';
-    document.getElementById('rondaDisplay').innerText = `Ronda ${rondaActual} / ${configJuego.rondas}`;
-    mostrarToast("Ajustes guardados.");
 }
 
 function finalizarPartida() {

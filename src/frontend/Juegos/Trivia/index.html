@@ -133,13 +133,30 @@
             </div>
 
             <div class="seccion-form">
-                <label><b>Mecánicas Especiales:</b></label>
-                <button id="btnModoRobo" class="btn-modo-robo" onclick="alternarModoRoboPlaceholder()">
-                    💥 Modo Robo: Deshabilitado (Próximamente)
-                </button>
+                <label><b>Dificultad Inicial:</b></label>
+                <select id="selectDificultadInicial">
+                    <option value="facil">Fácil (100 pts)</option>
+                    <option value="medio">Medio (150 pts)</option>
+                    <option value="dificil">Difícil (200 pts)</option>
+                </select>
             </div>
 
-            <hr class="divisor">
+            <div class="seccion-form opcion-checkbox">
+                <label><b>Modo Dificultad Incremental:</b></label>
+                <label class="switch">
+                    <input type="checkbox" id="checkDificultadIncremental" onchange="toggleDificultadIncremental()">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <div class="seccion-form">
+                <label><b>Dificultades Activas:</b></label>
+                <div class="checkboxes-dificultad">
+                    <label><input type="checkbox" id="checkFacil" checked> Fácil</label>
+                    <label><input type="checkbox" id="checkMedio" checked> Medio</label>
+                    <label><input type="checkbox" id="checkDificil" checked> Difícil</label>
+                </div>
+            </div>
 
             <div class="seccion-form">
                 <label><b>Temáticas activas en la bolsa:</b> <small>(Toca para activar/desactivar)</small></label>
@@ -149,7 +166,7 @@
             <div class="modal-botones-columna">
                 <button class="btn-guardar" onclick="guardarConfigJuego()">Aplicar Ajustes</button>
                 <button class="btn-peligro" onclick="pedirReinicioCompleto()">Reiniciar TODA la Partida</button>
-                <button class="btn-cancelar" onclick="document.getElementById('modalConfigJuego').style.display = 'none'">Cerrar</button>
+                <button class="btn-cancelar" onclick="cerrarConfigJuego()">Cerrar</button>
             </div>
         </div>
     </div>
@@ -178,6 +195,22 @@
 
     <div id="toastContainer" class="toast-container"></div>
 
+    <!-- Modal de Reglas -->
+    <div class="modal-overlay" id="modalReglas">
+        <div class="modal-contenido modal-reglas">
+            <h2 id="tituloReglas">📜 Reglas del Juego</h2>
+            <div id="contenidoReglas" class="contenido-reglas"></div>
+            <div class="modal-botones">
+                <button class="btn-guardar" onclick="cerrarReglas()">Entendido, Jugar</button>
+                <label class="checkbox-recordar">
+                    <input type="checkbox" id="checkNoMostrarReglas">
+                    No volver a mostrar
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script src="preguntas.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

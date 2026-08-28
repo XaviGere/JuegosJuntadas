@@ -1,3 +1,75 @@
+// --- CIERRE DE MODALES AL CLICKEAR FUERA DEL OVERLAY ---
+// Clic en el fondo (.modal-overlay) cierra el modal sin aplicar cambios.
+// En #modalResultado, cerrar por overlay equivale a pulsar "Continuar" (ejecuta callback).
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.style.display = 'none';
+                // Si es el modal de resultado, disparar el botón Continuar
+                if (overlay.id === 'modalResultado') {
+                    const btn = document.getElementById('btnContinuarResultado');
+                    if (btn) btn.click();
+                }
+            }
+        });
+    });
+});
+
+// --- SISTEMA DE REGLAS ---
+function mostrarReglas(juego, reglasHTML) {
+    const modal = document.getElementById('modalReglas');
+    const titulo = document.getElementById('tituloReglas');
+    const contenido = document.getElementById('contenidoReglas');
+    const checkNoMostrar = document.getElementById('checkNoMostrarReglas');
+    
+    // Verificar si usuario eligió no mostrar
+    const claveNoMostrar = `no_mostrar_reglas_${juego}`;
+    if (localStorage.getItem(claveNoMostrar) === 'true') {
+        return; // No mostrar
+    }
+    
+    titulo.innerText = `📜 Reglas - ${juego}`;
+    contenido.innerHTML = reglasHTML;
+    checkNoMostrar.checked = false;
+    
+    modal.style.display = 'flex';
+    
+    // Guardar preferencia
+    checkNoMostrar.onchange = () => {
+        localStorage.setItem(claveNoMostrar, checkNoMostrar.checked);
+    };
+}
+
+function cerrarReglas() {
+    document.getElementById('modalReglas').style.display = 'none';
+}
+
+const reglasLetrado = `
+    <h3>🎯 Objetivo</h3>
+    <p>Decir palabras que contengan la letra mostrada y pertenezcan a la categoría actual.</p>
+    
+    <h3>⏱️ Mecánicas</h3>
+    <ul>
+        <li>Tenés <strong>10 segundos</strong> para pensar una palabra.</li>
+        <li>La letra cambia aleatoriamente en cada turno.</li>
+        <li>Podés usar <strong>Pasapalabra</strong> para cambiar de letra.</li>
+        <li>Si el tiempo se agota, quedás eliminado.</li>
+    </ul>
+    
+    <h3>🏆 Puntuación</h3>
+    <ul>
+        <li>Acierto: +75 puntos</li>
+        <li>Sobrevivir ronda: +100 puntos</li>
+        <li>Completar abecedario: +150 puntos</li>
+    </ul>
+`;
+
+// Mostrar reglas al cargar
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarReglas('Letrado', reglasLetrado);
+});
+
 // --- ESTADO GLOBAL Y CONEXIÓN CON EL HUB ---
 let salasHub = JSON.parse(localStorage.getItem('arcade_salas')) || [];
 let idSalaActiva = localStorage.getItem('arcade_sala_activa');
@@ -116,6 +188,7 @@ const todasLasLetrasPosibles = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".split("");
 let rondaActual = 1;
 let bolsaLetras = [];
 let letraEnPantalla = "";
+let primerTurnoDeRonda = true; // Bandera para mostrar categoría solo al inicio
 
 let enJuego = false;
 let juegoPausado = false;
@@ -208,6 +281,47 @@ function actualizarDisplayReloj() {
 function iniciarTurno(esCambioDeLetra = true) {
     if (jugadoresVivos.length === 0) return;
     
+    // Paso 1: Mostrar categoría en grande SOLO al inicio de la ronda
+    if (primerTurnoDeRonda) {
+        const categoriaDOM = document.getElementById('textoCategoria');
+        const categoriaActual = categoriaDOM.innerText;
+
+        // Si no hay categoría seleccionada, tirar una automáticamente
+        if (categoriaActual === "Esperando inicio...") {
+            tirarCategoria();
+        }
+
+        // Mostrar la pantalla de juego (ocultar el ▶ inicial) para que la categoría sea visible
+        estadoInicialDOM.style.display = 'none';
+        estadoJuegoDOM.style.display = 'flex';
+
+        // Mostrar categoría en el centro grande
+        const categoriaAMostrar = document.getElementById('textoCategoria').innerText;
+        letraDisplayDOM.innerText = categoriaAMostrar;
+        letraDisplayDOM.style.fontSize = "2em"; // Texto más grande
+        letraDisplayDOM.style.fontWeight = "bold";
+        circuloDOM.style.backgroundColor = "var(--card-bg)"; // Usar color del fondo, no celeste
+        letraDisplayDOM.style.color = "var(--text-color)"; // Usar color del texto
+        timerDisplayDOM.style.display = "none"; // Ocultar timer durante categoria
+        
+        // Bloquear interacción durante la pausa de categoría
+        circuloDOM.style.pointerEvents = "none";
+        btnPPDOM.disabled = true;
+        
+        // Pausa de 2 segundos para que vean la categoría
+        setTimeout(() => {
+            iniciarContadorReal(esCambioDeLetra);
+        }, 2000); // 2 segundos mostrando categoría
+        
+        primerTurnoDeRonda = false; // Ya no es el primer turno
+    } else {
+        // Para turnos subsiguientes, iniciar directamente el contador
+        iniciarContadorReal(esCambioDeLetra);
+    }
+}
+
+function iniciarContadorReal(esCambioDeLetra = true) {
+    // Paso 2: Iniciar el contador normalmente
     enJuego = true;
     juegoPausado = false;
     
@@ -219,6 +333,13 @@ function iniciarTurno(esCambioDeLetra = true) {
     letraDisplayDOM.style.color = jugadorActual.color; 
     btnPPDOM.disabled = (jugadorActual.pasapalabras <= 0);
     
+    // Restaurar visibilidad del timer
+    timerDisplayDOM.style.display = "block";
+
+    // Restaurar tamaño/fuente de la letra SIEMPRE (también tras eliminación, esCambioDeLetra=false)
+    letraDisplayDOM.style.fontSize = ""; // Restaurar tamaño normal
+    letraDisplayDOM.style.fontWeight = "";
+
     if (esCambioDeLetra) {
         const nuevaLetra = obtenerLetraAleatoria();
         if (!nuevaLetra) {
@@ -227,8 +348,15 @@ function iniciarTurno(esCambioDeLetra = true) {
         }
         letraEnPantalla = nuevaLetra;
         letraDisplayDOM.innerText = letraEnPantalla;
+    } else {
+        // Tras eliminación o pasapalabra: restaurar la letra en pantalla
+        // (puede haber un emoji residual como 💀)
+        letraDisplayDOM.innerText = letraEnPantalla;
     }
 
+    // Restaurar interacción
+    circuloDOM.style.pointerEvents = "auto";
+    
     renderizarJugadores();
     btnPausaDOM.querySelector('div').innerText = "Pausar Juego";
     btnPausaDOM.classList.remove('pausado');
@@ -252,7 +380,7 @@ function iniciarTurno(esCambioDeLetra = true) {
                 tiempoRestanteMS = 0;
                 actualizarDisplayReloj();
                 clearInterval(timerInterval);
-                eliminarJugadorActual();
+                eliminarJugadorActualConPausa();
             } else {
                 actualizarDisplayReloj();
             }
@@ -295,23 +423,53 @@ function usarPasapalabra(evento) {
 
 // --- RESOLUCIÓN Y ELIMINACIONES ---
 function eliminarJugadorActual() {
+    // Esta función ahora llama a la versión con pausa para consistencia
+    eliminarJugadorActualConPausa();
+}
+
+function eliminarJugadorActualConPausa() {
+    const jugadorEliminado = jugadoresVivos[turnoIndex];
     jugadoresVivos.splice(turnoIndex, 1);
     
-    if (jugadoresVivos.length === 0) {
-        enJuego = false; rondaFinalizada = true;
-        letraDisplayDOM.innerText = "✖"; letraDisplayDOM.style.color = "#e74c3c";
-        mostrarResultado("💀", "¡Todos Eliminados!", "Nadie superó la ronda. Fin sin puntos.", avanzarRonda);
-    } else if (jugadoresVivos.length === 1) {
-        enJuego = false; rondaFinalizada = true;
-        letraDisplayDOM.innerText = "🏆"; letraDisplayDOM.style.color = "#f1c40f";
-        timerDisplayDOM.classList.remove('peligro');
-        jugadoresVivos[0].puntosMesa += 100;
-        renderizarJugadores();
-        mostrarResultado("👑", "¡Último en pie!", `¡${jugadoresVivos[0].nombre} gana 100 puntos!`, avanzarRonda);
-    } else {
-        if (turnoIndex >= jugadoresVivos.length) turnoIndex = 0;
-        iniciarTurno(false); 
-    }
+    // Mostrar feedback visual de eliminación
+    letraDisplayDOM.innerText = "💀"; // Emoji de eliminación
+    letraDisplayDOM.style.color = "#e74c3c"; // Rojo
+    letraDisplayDOM.style.fontSize = "2em";
+    timerDisplayDOM.innerText = "0.00";
+    timerDisplayDOM.classList.add('peligro');
+    
+    // Mostrar toast informativo
+    mostrarToast(`¡${jugadorEliminado.nombre} eliminado!`, 2000);
+    
+    // Bloquear interacción durante la pausa
+    juegoPausado = true;
+    circuloDOM.style.pointerEvents = "none"; // Bloquear toques
+    btnPPDOM.disabled = true;
+    
+    // Pausa de 2 segundos antes de pasar al siguiente turno
+    setTimeout(() => {
+        // Restaurar interacción
+        juegoPausado = false;
+        circuloDOM.style.pointerEvents = "auto";
+        letraDisplayDOM.style.fontSize = "";
+        
+        if (jugadoresVivos.length === 0) {
+            enJuego = false; rondaFinalizada = true;
+            letraDisplayDOM.innerText = "✖"; 
+            mostrarResultado("💀", "¡Todos Eliminados!", "Nadie superó la ronda. Fin sin puntos.", avanzarRonda);
+        } else if (jugadoresVivos.length === 1) {
+            enJuego = false; rondaFinalizada = true;
+            letraDisplayDOM.innerText = "🏆"; 
+            letraDisplayDOM.style.color = "#f1c40f";
+            timerDisplayDOM.classList.remove('peligro');
+            jugadoresVivos[0].puntosMesa += 100;
+            renderizarJugadores();
+            mostrarResultado("👑", "¡Último en pie!", `¡${jugadoresVivos[0].nombre} gana 100 puntos!`, avanzarRonda);
+        } else {
+            if (turnoIndex >= jugadoresVivos.length) turnoIndex = 0;
+            iniciarTurno(false); 
+        }
+    }, 2000); // 2 segundos de pausa
 }
 
 function verificarVictoria() {
@@ -349,6 +507,7 @@ function rotarJugadores() {
 
 function prepararRonda() {
     generarBolsaLetras();
+    primerTurnoDeRonda = true; // Resetear bandera al inicio de ronda
     
     if (rondaActual === 1) {
         jugadoresVivos = jugadoresPartida.map(j => { j.pasapalabras = configJuego.pasapalabras; return j; });

@@ -1,0 +1,157 @@
+@startuml Diagrama de Arquitectura - Juegos-Hub
+
+!define RECTANGLE class
+
+title Arquitectura de Juegos-Hub (Estado Actual + Estructura Futura Preparada)
+
+package "Frontend (Cliente) - ACTIVO" {
+    [index.html] as Index
+    [script.js] as Script
+    [style.css] as Style
+    
+    package "Juegos" {
+        [Basta/] as Basta
+        [Letrado/] as Letrado  
+        [Trivia/] as Trivia
+        [Juego4/] as Juego4
+        [Juego5/] as Juego5
+    }
+}
+
+package "Persistencia (LocalStorage) - ACTIVO" {
+    [arcade_salas] as SalasData
+    [arcade_sala_activa] as SalaActiva
+    [arcade_config] as ConfigData
+    [arcade_modo_oscuro] as ModoOscuro
+}
+
+package "Backend (FastAPI) - PLACEHOLDER FUTURO" {
+    [main.py] as API
+    [routers/auth.py] as Auth
+    [routers/salas.py] as SalasAPI
+    [routers/partidas.py] as PartidasAPI
+    
+    package "Core" {
+        [auth.py] as AuthCore
+        [database.py] as DBUtil
+    }
+}
+
+package "Tests - PLACEHOLDER FUTURO" {
+    [test_auth.py] as TestAuth
+    [test_salas.py] as TestSalas
+    [test_juegos/] as TestJuegos
+}
+
+Index --> Basta : Navegación
+Index --> Letrado : Navegación
+Index --> Trivia : Navegación
+Index --> Juego4 : Placeholder
+Index --> Juego5 : Placeholder
+
+Script --> SalasData : Lectura/Escritura
+Script --> SalaActiva : Lectura/Escritura
+Script --> ConfigData : Lectura/Escritura
+Script --> ModoOscuro : Lectura/Escritura
+
+Basta --> SalasData : Lectura
+Letrado --> SalasData : Lectura
+Trivia --> SalasData : Lectura
+
+Basta --> ConfigData : Lectura
+Letrado --> ConfigData : Lectura
+Trivia --> ConfigData : Lectura
+
+note right of SalasData
+  ACTUAL: LocalStorage
+  Volátil y local
+end note
+
+note right of API
+  FUTURO: Backend FastAPI
+  Placeholder preparado
+end note
+
+note right of TestJuegos
+  FUTURO: Tests pytest
+  Estructura preparada
+end note
+
+@enduml
+
+!define RECTANGLE class
+
+title Arquitectura Futura de Juegos-Hub (Fullstack)
+
+package "Frontend (Cliente)" {
+    [index.html] as Index
+    [script.js] as Script
+    [style.css] as Style
+    
+    package "Juegos" {
+        [Basta/] as Basta
+        [Letrado/] as Letrado
+        [Trivia/] as Trivia
+        [Juego4/] as Juego4
+        [Juego5/] as Juego5
+    }
+}
+
+package "Backend (FastAPI)" {
+    [main.py] as API
+    [routers/auth.py] as Auth
+    [routers/salas.py] as SalasAPI
+    [routers/partidas.py] as PartidasAPI
+    
+    package "Core" {
+        [auth.py] as AuthCore
+        [database.py] as DBUtil
+    }
+}
+
+package "Base de Datos (PostgreSQL)" {
+    [usuarios] as Usuarios
+    [salas] as SalasDB
+    [jugadores] as JugadoresDB
+    [partidas] as PartidasDB
+    [puntajes_partida] as PuntajesDB
+}
+
+package "WebSockets" {
+    [websocket.py] as WS
+}
+
+Index --> API : HTTP REST
+Basta --> API : HTTP REST
+Letrado --> API : HTTP REST
+Trivia --> API : HTTP REST
+
+Script --> WS : WebSocket
+Basta --> WS : WebSocket
+Letrado --> WS : WebSocket
+Trivia --> WS : WebSocket
+
+API --> Auth : Autenticación
+API --> SalasAPI : Gestión Salas
+API --> PartidasAPI : Gestión Partidas
+
+AuthCore --> Usuarios : JWT
+SalasAPI --> SalasDB : CRUD
+SalasAPI --> JugadoresDB : CRUD
+PartidasAPI --> PartidasDB : CRUD
+PartidasAPI --> PuntajesDB : CRUD
+
+WS --> SalasDB : Sincronización
+WS --> PartidasDB : Estado en tiempo real
+
+note right of Usuarios
+  Base de datos persistente
+  Multi-usuario
+end note
+
+note left of WS
+  Comunicación en tiempo real
+  Multi-dispositivo
+end note
+
+@enduml
