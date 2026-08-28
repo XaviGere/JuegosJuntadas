@@ -21,6 +21,22 @@ const sidebarSala = document.getElementById('sidebarSala');
 const contenedorSalas = document.getElementById('contenedorSalas');
 const textoSalaActiva = document.getElementById('textoSalaActiva');
 
+// --- CIERRE DE MODALES AL CLICKEAR FUERA DEL OVERLAY ---
+// Clic en el fondo (.modal-overlay) cierra el modal sin aplicar cambios.
+// Clic dentro de .modal-contenido no se propaga al overlay.
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.style.display = 'none';
+            // Si es el modal de sala, limpiar estado de edición para no colgar datos
+            if (overlay.id === 'modalSala') {
+                salaEnEdicionId = null;
+                jugadoresTemporales = [];
+            }
+        }
+    });
+});
+
 // --- INICIALIZACIÓN ---
 function aplicarConfiguracionInicial() {
     if (configGlobal.modoOscuro) document.body.classList.add('dark-mode');

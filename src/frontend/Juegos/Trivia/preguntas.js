@@ -1,0 +1,3195 @@
+// Banco de preguntas de Trivia - cargado via script tag (funciona con file:// y http://)
+window.PREGUNTAS_TRIVIA = [
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es la capital de Francia?",
+    "respuesta": "París",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuántos días tiene una semana?",
+    "respuesta": "Siete",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿De qué color es el cielo en un día despejado?",
+    "respuesta": "Azul",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuántas estaciones del año existen?",
+    "respuesta": "Cuatro (primavera, verano, otoño, invierno)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el animal terrestre más grande?",
+    "respuesta": "Elefante africano",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué instrumento se usa para medir la temperatura?",
+    "respuesta": "Termómetro",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el metal más precioso y común en joyería?",
+    "respuesta": "Oro",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuántas patas tiene una araña?",
+    "respuesta": "Ocho",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el idioma más hablado del mundo?",
+    "respuesta": "Inglés (por hablantes totales) o Chino mandarín (por nativos)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué fruta es conocida por tener vitamina C en abundancia?",
+    "respuesta": "Naranja (o cítricos)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuántas horas tiene un día?",
+    "respuesta": "24",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el océano más grande del mundo?",
+    "respuesta": "Océano Pacífico",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué gas respiramos para vivir?",
+    "respuesta": "Oxígeno",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuántos minutos tiene una hora?",
+    "respuesta": "60",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el símbolo del amor en la cultura occidental?",
+    "respuesta": "Corazón",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué color se obtiene al mezclar azul y amarillo?",
+    "respuesta": "Verde",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuántos lados tiene un triángulo?",
+    "respuesta": "Tres",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es la moneda de Estados Unidos?",
+    "respuesta": "Dólar",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué planeta habitamos?",
+    "respuesta": "Tierra",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el continente más poblado?",
+    "respuesta": "Asia",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué día sigue al viernes?",
+    "respuesta": "Sábado",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el número de la suerte en muchas culturas occidentales?",
+    "respuesta": "7",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué forma tiene la Tierra?",
+    "respuesta": "Esfera (geoide)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el sonido que hace el perro?",
+    "respuesta": "Ladrido",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el color de la nieve?",
+    "respuesta": "Blanco",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el río más largo del mundo?",
+    "respuesta": "Río Amazonas (según estudios recientes) o Nilo (según medición clásica)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué país tiene la mayor población del mundo?",
+    "respuesta": "India (desde 2023) o China",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el desierto más grande del mundo?",
+    "respuesta": "Desierto de Sahara (caliente) o Antártida (frío)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué organización internacional se ocupa de la salud mundial?",
+    "respuesta": "OMS (Organización Mundial de la Salud)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es la moneda oficial de Japón?",
+    "respuesta": "Yen",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué país es conocido como 'el país del sol naciente'?",
+    "respuesta": "Japón",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es la torre inclinada más famosa del mundo?",
+    "respuesta": "Torre de Pisa",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué canal conecta el océano Atlántico con el Pacífico?",
+    "respuesta": "Canal de Panamá",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el idioma oficial de Brasil?",
+    "respuesta": "Portugués",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué país es famoso por sus tulipanes y molinos de viento?",
+    "respuesta": "Países Bajos (Holanda)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es la capital de Australia?",
+    "respuesta": "Canberra",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué mar es el más salado del mundo?",
+    "respuesta": "Mar Muerto",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el país más grande del mundo en superficie?",
+    "respuesta": "Rusia",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué ciudad es conocida como 'La Ciudad Luz'?",
+    "respuesta": "París",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el animal más rápido en tierra?",
+    "respuesta": "Guepardo (chita)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué estructura china es visible desde el espacio?",
+    "respuesta": "Gran Muralla China",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es la capital de Egipto?",
+    "respuesta": "El Cairo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué país tiene forma de bota?",
+    "respuesta": "Italia",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el lago más profundo del mundo?",
+    "respuesta": "Lago Baikal",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué río pasa por Londres?",
+    "respuesta": "Támesis (Thames)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es la capital de Canadá?",
+    "respuesta": "Ottawa",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el país más pequeño del mundo?",
+    "respuesta": "Ciudad del Vaticano",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué estrecho separa Asia de América del Norte?",
+    "respuesta": "Estrecho de Bering",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es la capital de Mongolia?",
+    "respuesta": "Ulan Bator",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué país tiene más islas en el mundo?",
+    "respuesta": "Suecia",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el punto más bajo de la Tierra en tierra firme?",
+    "respuesta": "Mar Muerto (costa) o Fosa de las Marianas (submarino)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué país tiene la bandera más antigua del mundo aún en uso?",
+    "respuesta": "Dinamarca (Dannebrog)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es la capital de Kirguistán?",
+    "respuesta": "Bishkek",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué río es el más caudaloso del mundo?",
+    "respuesta": "Río Amazonas",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Cuál es el país con más husos horarios?",
+    "respuesta": "Francia (con sus territorios de ultramar)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cultura General",
+    "pregunta": "¿Qué monte es el más alto de África?",
+    "respuesta": "Kilimanjaro",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el símbolo químico del agua?",
+    "respuesta": "H2O",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuántos planetas tiene el sistema solar?",
+    "respuesta": "Ocho",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué planeta es conocido como el planeta rojo?",
+    "respuesta": "Marte",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el planeta más grande del sistema solar?",
+    "respuesta": "Júpiter",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué gas compone la mayor parte de la atmósfera terrestre?",
+    "respuesta": "Nitrógeno",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es la estrella de nuestro sistema solar?",
+    "respuesta": "El Sol",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué órgano bombea la sangre en el cuerpo humano?",
+    "respuesta": "Corazón",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuántos huesos tiene el cuerpo humano adulto?",
+    "respuesta": "206",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el símbolo químico del oro?",
+    "respuesta": "Au",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué planeta es el más cercano al Sol?",
+    "respuesta": "Mercurio",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el proceso por el cual las plantas hacen su alimento?",
+    "respuesta": "Fotosíntesis",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué órgano humano se encarga de respirar?",
+    "respuesta": "Pulmones",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el metal líquido a temperatura ambiente?",
+    "respuesta": "Mercurio",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué fuerza nos mantiene en la Tierra?",
+    "respuesta": "Gravedad",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el símbolo químico del oxígeno?",
+    "respuesta": "O",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué planeta tiene anillos visibles famosos?",
+    "respuesta": "Saturno",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el estado del agua a 0 grados Celsius?",
+    "respuesta": "Hielo (sólido)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué parte del cuerpo humano controla el pensamiento?",
+    "respuesta": "Cerebro",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el animal más grande del mundo?",
+    "respuesta": "Ballena azul",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuántos litros tiene un metro cúbico de agua?",
+    "respuesta": "1000",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Quién formuló la teoría de la relatividad?",
+    "respuesta": "Albert Einstein",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el elemento más abundante en el universo?",
+    "respuesta": "Hidrógeno",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué científico propuso las leyes del movimiento y la gravitación universal?",
+    "respuesta": "Isaac Newton",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es la velocidad de la luz aproximada?",
+    "respuesta": "300.000 km/s (299.792 km/s)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué tipo de animal es el koala?",
+    "respuesta": "Marsupial",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el pH neutro?",
+    "respuesta": "7",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué científico desarrolló la teoría de la evolución por selección natural?",
+    "respuesta": "Charles Darwin",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el metal más liviano?",
+    "respuesta": "Litio",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué parte del átomo tiene carga positiva?",
+    "respuesta": "Protón (en el núcleo)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el satélite natural de la Tierra?",
+    "respuesta": "La Luna",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué gas usan las plantas para la fotosíntesis?",
+    "respuesta": "Dióxido de carbono (CO2)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el hueso más largo del cuerpo humano?",
+    "respuesta": "Fémur",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué tipo de energía produce el Sol?",
+    "respuesta": "Energía nuclear (fusión)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el grupo de animales más numeroso del mundo?",
+    "respuesta": "Insectos",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué científica descubrió la radiactividad junto a su esposo?",
+    "respuesta": "Marie Curie",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es la galaxia donde vivimos?",
+    "respuesta": "Vía Láctea",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué parte de la célula contiene el ADN?",
+    "respuesta": "Núcleo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el mineral más duro de la Tierra?",
+    "respuesta": "Diamante",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué tipo de corriente usan las pilas?",
+    "respuesta": "Corriente continua (CC)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el nombre del primer satélite artificial lanzado al espacio?",
+    "respuesta": "Sputnik 1",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el número atómico del carbono?",
+    "respuesta": "6",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué partícula subatómica fue descubierta en 2012 en el CERN?",
+    "respuesta": "Bosón de Higgs",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el nombre de la constante que describe la expansión del universo?",
+    "respuesta": "Constante de Hubble",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué científico propuso el modelo heliocéntrico del sistema solar?",
+    "respuesta": "Nicolás Copérnico",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el nombre del proceso por el cual una célula se divide en dos?",
+    "respuesta": "Mitosis",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué tipo de roca se forma por el enfriamiento del magma?",
+    "respuesta": "Ígnea",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el nombre del primer animal en orbitar la Tierra?",
+    "respuesta": "La perra Laika",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué científico propuso la tabla periódica de los elementos?",
+    "respuesta": "Dmitri Mendeléyev",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Cuál es el nombre de la enfermedad causada por el Plasmodium?",
+    "respuesta": "Malaria (paludismo)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Ciencia",
+    "pregunta": "¿Qué fenómeno cuántico permite a una partícula estar en dos estados a la vez?",
+    "respuesta": "Superposición cuántica",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año llegó el hombre a la Luna?",
+    "respuesta": "1969",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el primer presidente de Estados Unidos?",
+    "respuesta": "George Washington",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué siglo se descubrió América?",
+    "respuesta": "Siglo XV (1492)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién descubrió América en 1492?",
+    "respuesta": "Cristóbal Colón",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué civilización construyó las pirámides de Egipto?",
+    "respuesta": "Los egipcios (antiguos)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año terminó la Segunda Guerra Mundial?",
+    "respuesta": "1945",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el líder nazi durante la Segunda Guerra Mundial?",
+    "respuesta": "Adolf Hitler",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué imperio construyó el Coliseo Romano?",
+    "respuesta": "Imperio Romano",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el primer emperador romano?",
+    "respuesta": "Augusto (Octavio)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año comenzó la Primera Guerra Mundial?",
+    "respuesta": "1914",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué civilización antigua se desarrolló en la península de Yucatán?",
+    "respuesta": "Los mayas",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el líder de la Revolución Rusa de 1917?",
+    "respuesta": "Vladimir Lenin",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué reina de Egipto tuvo relaciones con romanos como César y Marco Antonio?",
+    "respuesta": "Cleopatra",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año cayó el Muro de Berlín?",
+    "respuesta": "1989",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué imperio fue gobernado por Julio César?",
+    "respuesta": "Imperio Romano (República Romana)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién pintó la Capilla Sixtina?",
+    "respuesta": "Miguel Ángel",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué civilización inventó la democracia?",
+    "respuesta": "Los griegos (Atenas)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año se firmó la Declaración de Independencia de Estados Unidos?",
+    "respuesta": "1776",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el faraón niño más famoso de Egipto?",
+    "respuesta": "Tutankamón",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué país construyó la Gran Muralla?",
+    "respuesta": "China",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el primer emperador de China que unificó el país?",
+    "respuesta": "Qin Shi Huang",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año comenzó la Revolución Francesa?",
+    "respuesta": "1789",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el líder de la marcha civil india contra el dominio británico?",
+    "respuesta": "Mahatma Gandhi",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué guerra fue conocida como 'La Guerra de los Cien Años'?",
+    "respuesta": "Guerra entre Inglaterra y Francia (1337-1453)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el último zar de Rusia?",
+    "respuesta": "Nicolás II",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año se hundió el Titanic?",
+    "respuesta": "1912",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué civilización inventó la pólvora?",
+    "respuesta": "Los chinos",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el general cartaginés que cruzó los Alpes con elefantes?",
+    "respuesta": "Aníbal Barca",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año se disolvió la Unión Soviética?",
+    "respuesta": "1991",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué rey francés fue guillotinado en la Revolución Francesa?",
+    "respuesta": "Luis XVI",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién proclamó la independencia de Argentina en 1816?",
+    "respuesta": "Congreso de Tucumán (José de San Martín participó en la gesta)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué imperio fue gobernado por Napoleón Bonaparte?",
+    "respuesta": "Primer Imperio Francés",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año terminó la Guerra Fría simbólicamente?",
+    "respuesta": "1989 (caída del Muro) o 1991 (disolución URSS)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el líder cubano que lideró la revolución de 1959?",
+    "respuesta": "Fidel Castro",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué civilización creó la ciudad de Machu Picchu?",
+    "respuesta": "Los incas",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el primer hombre en dar la vuelta al mundo (expedición)?",
+    "respuesta": "Fernando de Magallanes / Juan Sebastián Elcano",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año comenzó la Edad Media tradicionalmente?",
+    "respuesta": "476 (caída del Imperio Romano de Occidente)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué presidente estadounidense fue asesinado en Dallas en 1963?",
+    "respuesta": "John F. Kennedy",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el líder sudafricano que terminó con el apartheid?",
+    "respuesta": "Nelson Mandela",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año se firmó la paz de Westfalia que terminó la Guerra de los Treinta Años?",
+    "respuesta": "1648",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el último rey de Francia antes de la Revolución?",
+    "respuesta": "Luis XVI",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año se produjo la caída de Constantinopla?",
+    "respuesta": "1453",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el fundador del Imperio Mongol?",
+    "respuesta": "Gengis Kan",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué tratado puso fin a la Primera Guerra Mundial?",
+    "respuesta": "Tratado de Versalles",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año se proclamó la República Romana?",
+    "respuesta": "509 a.C.",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el faraón que intentó instaurar el monoteísmo en Egipto?",
+    "respuesta": "Akenatón",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué batalla del año 732 detuvo el avance musulmán en Europa?",
+    "respuesta": "Batalla de Poitiers (Tours)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Quién fue el último emperador romano de Occidente?",
+    "respuesta": "Rómulo Augústulo",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿En qué año se firmó la Carta Magna en Inglaterra?",
+    "respuesta": "1215",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Historia",
+    "pregunta": "¿Qué civilización creó el primer código de leyes conocido?",
+    "respuesta": "Los babilonios (Código de Hammurabi)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de España?",
+    "respuesta": "Madrid",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Italia?",
+    "respuesta": "Roma",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Inglaterra?",
+    "respuesta": "Londres",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Alemania?",
+    "respuesta": "Berlín",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Argentina?",
+    "respuesta": "Buenos Aires",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué continente está al sur de Europa?",
+    "respuesta": "África",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es el continente más pequeño?",
+    "respuesta": "Oceanía (o Australia)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿En qué continente está Egipto?",
+    "respuesta": "África",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de México?",
+    "respuesta": "Ciudad de México",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué país tiene forma de bota?",
+    "respuesta": "Italia",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es el océano que baña la costa este de América del Sur?",
+    "respuesta": "Océano Atlántico",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Portugal?",
+    "respuesta": "Lisboa",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿En qué continente está Japón?",
+    "respuesta": "Asia",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Rusia?",
+    "respuesta": "Moscú",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué país es el más grande de América del Sur?",
+    "respuesta": "Brasil",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de China?",
+    "respuesta": "Pekín (Beijing)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué río pasa por París?",
+    "respuesta": "Sena",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Brasil?",
+    "respuesta": "Brasilia",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿En qué continente está India?",
+    "respuesta": "Asia",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Chile?",
+    "respuesta": "Santiago",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Australia?",
+    "respuesta": "Canberra",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué cordillera separa Argentina y Chile?",
+    "respuesta": "Cordillera de los Andes",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Sudáfrica (la legislativa)?",
+    "respuesta": "Ciudad del Cabo (legislativa), Pretoria (administrativa), Bloemfontein (judicial)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué río es el más largo de Sudamérica?",
+    "respuesta": "Río Amazonas",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Turquía?",
+    "respuesta": "Ankara",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué país africano tiene la pirámide más grande?",
+    "respuesta": "Egipto",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Suiza?",
+    "respuesta": "Berna",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué estrecho separa Europa de África?",
+    "respuesta": "Estrecho de Gibraltar",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Noruega?",
+    "respuesta": "Oslo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué país tiene más habitantes de América del Norte?",
+    "respuesta": "Estados Unidos",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Grecia?",
+    "respuesta": "Atenas",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué mar está entre Europa y África al este?",
+    "respuesta": "Mar Mediterráneo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Corea del Sur?",
+    "respuesta": "Seúl",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué río pasa por El Cairo?",
+    "respuesta": "Río Nilo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Bélgica?",
+    "respuesta": "Bruselas",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué país es conocido como el 'país de los fiordos'?",
+    "respuesta": "Noruega",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Austria?",
+    "respuesta": "Viena",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué montaña es la más alta del mundo?",
+    "respuesta": "Monte Everest",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Marruecos?",
+    "respuesta": "Rabat",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué país es el más grande de África?",
+    "respuesta": "Argelia (superficie) o Nigeria (población)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Kazajistán?",
+    "respuesta": "Astana (actualmente Nur-sultán según el período)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué país tiene la mayor cantidad de volcanes activos?",
+    "respuesta": "Indonesia (o Estados Unidos)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Islandia?",
+    "respuesta": "Reikiavik",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué río es el más largo de Asia?",
+    "respuesta": "Río Yangtsé",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es el país más montañoso del mundo?",
+    "respuesta": "Bután (o Nepal, según el criterio)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué estrecho separa Asia de África en el noreste?",
+    "respuesta": "Estrecho de Bab el-Mandeb (mar Rojo)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es la capital de Tayikistán?",
+    "respuesta": "Dusambé",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué lago es el más grande de África?",
+    "respuesta": "Lago Victoria",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Cuál es el punto más alto de América del Sur?",
+    "respuesta": "Cerro Aconcagua",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Geografía",
+    "pregunta": "¿Qué país tiene la costa más larga del mundo?",
+    "respuesta": "Canadá",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuántos jugadores tiene un equipo de fútbol en el campo?",
+    "respuesta": "Once",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué deporte se juega con una raqueta y una pelota amarilla?",
+    "respuesta": "Tenis",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuántos puntos vale una canasta de tres en básquet?",
+    "respuesta": "Tres",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué deporte se usa un palo y una pelota pequeña?",
+    "respuesta": "Golf",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuál es el deporte más popular del mundo?",
+    "respuesta": "Fútbol",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuántos jugadores tiene un equipo de voleibol en cancha?",
+    "respuesta": "Seis",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué deporte se juega en un ring con guantes?",
+    "respuesta": "Boxeo",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué deporte se nada, pedalea y corre?",
+    "respuesta": "Triatlón",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuántos tiempos tiene un partido de fútbol?",
+    "respuesta": "Dos",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué color de tarjeta expulsa a un jugador en fútbol?",
+    "respuesta": "Roja",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuántos jugadores tiene un equipo de básquet en cancha?",
+    "respuesta": "Cinco",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué deporte se juega con un palo y un disco negro?",
+    "respuesta": "Hockey (sobre hielo)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cada cuántos años se celebran los Juegos Olímpicos de verano?",
+    "respuesta": "Cuatro",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué deporte se juega en una piscina con una pelota?",
+    "respuesta": "Waterpolo",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuál es el deporte nacional de Japón?",
+    "respuesta": "Sumo",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué deporte usa una tabla y olas?",
+    "respuesta": "Surf",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuántos sets se necesitan para ganar un partido de tenis al mejor de cinco?",
+    "respuesta": "Tres",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué deporte se lanza una jabalina?",
+    "respuesta": "Atletismo",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué deporte se juega con un guante grande y una pelota pequeña?",
+    "respuesta": "Béisbol",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuál es la duración total de un partido de fútbol profesional (sin extras)?",
+    "respuesta": "90 minutos",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién ganó el Mundial de Fútbol de 2022?",
+    "respuesta": "Argentina",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuántos Balones de Oro tiene Lionel Messi?",
+    "respuesta": "Ocho",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué año se celebraron los primeros Juegos Olímpicos modernos?",
+    "respuesta": "1896",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué país ganó más copas del mundo de fútbol (hombres)?",
+    "respuesta": "Brasil (5)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué ciudad están las sedes de la NBA?",
+    "respuesta": "Estados Unidos y Canadá",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién es considerado el mejor jugador de básquet de la historia por muchos?",
+    "respuesta": "Michael Jordan (o LeBron James, según opinión)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuál es el circuito automovilístico más famoso del mundo?",
+    "respuesta": "Mónaco (Fórmula 1)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué tenista tiene más títulos de Grand Slam en hombres?",
+    "respuesta": "Novak Djokovic",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué país se originó el fútbol moderno?",
+    "respuesta": "Inglaterra",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién fue el primer hombre en correr una maratón en menos de 2 horas?",
+    "respuesta": "Eliud Kipchoge",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuántos jugadores tiene un equipo de rugby union en el campo?",
+    "respuesta": "Quince",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué país ganó el Mundial de Fútbol Femenino de 2019?",
+    "respuesta": "Estados Unidos",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién tiene el récord de más medallas olímpicas de la historia?",
+    "respuesta": "Michael Phelps",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué deporte se usa el término 'home run'?",
+    "respuesta": "Béisbol",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuál es el equipo de fútbol con más Champions League?",
+    "respuesta": "Real Madrid",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué país ganó el Mundial de Fútbol de 2018?",
+    "respuesta": "Francia",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué deporte se compite en 'relevos' 4x100?",
+    "respuesta": "Atletismo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién fue el primer tenista en ganar los cuatro Grand Slam en un mismo año?",
+    "respuesta": "Don Budge (1938)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuál es el deporte más visto en televisión en el mundo?",
+    "respuesta": "Fútbol",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué país se inventó el tenis moderno?",
+    "respuesta": "Inglaterra",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién ganó el primer Mundial de Fútbol en 1930?",
+    "respuesta": "Uruguay",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué año se jugó el primer Super Bowl de la NFL?",
+    "respuesta": "1967",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Cuál es el golfista más joven en ganar el Masters de Augusta?",
+    "respuesta": "Tiger Woods (21 años)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién tiene el récord de más goles en una sola Copa del Mundo?",
+    "respuesta": "Just Fontaine (13 goles, 1958)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué año se celebró el primer Tour de Francia?",
+    "respuesta": "1903",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién fue el primer boxeador en ganar el título mundial en tres pesos diferentes?",
+    "respuesta": "Bob Fitzsimmons",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Qué país ganó la primera Copa Davis de tenis en 1900?",
+    "respuesta": "Estados Unidos",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién tiene el récord de más puntos en la historia de la NBA?",
+    "respuesta": "LeBron James (superó a Kareem Abdul-Jabbar)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿En qué ciudad se celebraron los Juegos Olímpicos de 1992?",
+    "respuesta": "Barcelona",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Deportes",
+    "pregunta": "¿Quién fue el primer piloto en ganar siete campeonatos de Fórmula 1?",
+    "respuesta": "Michael Schumacher (empatado con Lewis Hamilton)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó La Mona Lisa?",
+    "respuesta": "Leonardo da Vinci",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó La Última Cena?",
+    "respuesta": "Leonardo da Vinci",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué artista es famoso por sus girasoles?",
+    "respuesta": "Vincent van Gogh",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién esculpió el David?",
+    "respuesta": "Miguel Ángel",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué museo de París tiene la Mona Lisa?",
+    "respuesta": "Museo del Louvre",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó El Grito?",
+    "respuesta": "Edvard Munch",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué color se obtiene al mezclar rojo y blanco?",
+    "respuesta": "Rosa",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Cuántas pinturas forman la Capilla Sixtina?",
+    "respuesta": "Muchas (frescos completos, no un número simple)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó Guernica?",
+    "respuesta": "Pablo Picasso",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué famoso cuadro muestra una noche estrellada con remolinos?",
+    "respuesta": "La Noche Estrellada (van Gogh)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué artista cortó su propia oreja?",
+    "respuesta": "Vincent van Gogh",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó Las Meninas?",
+    "respuesta": "Diego Velázquez",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué color es primario junto al azul y amarillo?",
+    "respuesta": "Rojo",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién es el autor de La Persistencia de la Memoria (relojes blandos)?",
+    "respuesta": "Salvador Dalí",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué museo español es famoso por el Guernica?",
+    "respuesta": "Museo Reina Sofía (Madrid)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué movimiento artístico lideró Pablo Picasso junto a Braque?",
+    "respuesta": "Cubismo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó Los Nenúfares?",
+    "respuesta": "Claude Monet",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué artista es conocido por sus latas de sopa Campbell?",
+    "respuesta": "Andy Warhol",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué pintor renacentista italiano pintó El Nacimiento de Venus?",
+    "respuesta": "Sandro Botticelli",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién es el autor de la escultura El Pensador?",
+    "respuesta": "Auguste Rodin",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué movimiento artístico se caracteriza por puntos de color pequeños?",
+    "respuesta": "Puntillismo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó La Creación de Adán en la Capilla Sixtina?",
+    "respuesta": "Miguel Ángel",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué artista mexicana es conocida por sus autorretratos?",
+    "respuesta": "Frida Kahlo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿En qué ciudad está el Museo del Prado?",
+    "respuesta": "Madrid",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién es el autor de la obra Los Girasoles (serie)?",
+    "respuesta": "Vincent van Gogh",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué estilo artístico se desarrolló en el siglo XX con formas imposibles?",
+    "respuesta": "Surrealismo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó La Joven de la Perla?",
+    "respuesta": "Johannes Vermeer",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué museo de Nueva York es famoso por arte moderno?",
+    "respuesta": "MoMA (Museum of Modern Art)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién diseñó la Sagrada Familia de Barcelona?",
+    "respuesta": "Antoni Gaudí",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué artista es conocido por sus 'drip paintings'?",
+    "respuesta": "Jackson Pollock",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué pintor flamenco es autor de El Jardín de las Delicias?",
+    "respuesta": "El Bosco (Hieronymus Bosch)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó Las Bodas de Caná?",
+    "respuesta": "Paolo Veronese",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué escultor griego es autor del Discóbolo?",
+    "respuesta": "Mirón",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó El Triunfo de la Muerte (Palermo)?",
+    "respuesta": "Pieter Brueghel el Viejo (atribución discutida)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué arquitecto diseñó el Museo Guggenheim de Bilbao?",
+    "respuesta": "Frank Gehry",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién es el autor de La Libertad Guiando al Pueblo?",
+    "respuesta": "Eugène Delacroix",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué pintor italiano es autor de La Anunciación (Uffizi)?",
+    "respuesta": "Sandro Botticelli (o Leonardo, según versión)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién diseñó la cúpula de la Catedral de Florencia?",
+    "respuesta": "Filippo Brunelleschi",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Qué artista es autor de Los Embajadores (National Gallery)?",
+    "respuesta": "Hans Holbein el Joven",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Arte",
+    "pregunta": "¿Quién pintó El Descendimiento de la Cruz (Antwerp)?",
+    "respuesta": "Peter Paul Rubens",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Cuántas cuerdas tiene una guitarra estándar?",
+    "respuesta": "Seis",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién cantó 'Bohemian Rhapsody'?",
+    "respuesta": "Queen (Freddie Mercury)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué instrumento tiene teclas blancas y negras?",
+    "respuesta": "Piano",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Cuál es la banda más famosa de Liverpool?",
+    "respuesta": "The Beatles",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién cantó 'Thriller'?",
+    "respuesta": "Michael Jackson",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Cuántas teclas tiene un piano estándar?",
+    "respuesta": "88",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué instrumento se toca soplando y tiene una boquilla con caña?",
+    "respuesta": "Clarinete (o saxofón)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso las Nueve Sinfonías más famosas?",
+    "respuesta": "Ludwig van Beethoven",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué cantante es conocido como el 'Rey del Pop'?",
+    "respuesta": "Michael Jackson",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Cuántas notas musicales básicas existen?",
+    "respuesta": "Siete (do, re, mi, fa, sol, la, si)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién cantó 'Like a Rolling Stone'?",
+    "respuesta": "Bob Dylan",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué banda escribió 'Stairway to Heaven'?",
+    "respuesta": "Led Zeppelin",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso 'Las Cuatro Estaciones'?",
+    "respuesta": "Antonio Vivaldi",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué instrumento se toca con arco?",
+    "respuesta": "Violín (o viola, violonchelo)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién es conocido como el 'Rey del Rock'?",
+    "respuesta": "Elvis Presley",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso la Novena Sinfonía con el 'Himno de la Alegría'?",
+    "respuesta": "Ludwig van Beethoven",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué banda británica escribió 'Hey Jude'?",
+    "respuesta": "The Beatles",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso 'La Pequeña Serenata Nocturna'?",
+    "respuesta": "Wolfgang Amadeus Mozart",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué cantante pop es conocida como la 'Reina del Pop'?",
+    "respuesta": "Madonna",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué banda argentina es famosa por 'De Música Ligera'?",
+    "respuesta": "Soda Stereo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso 'La Flauta Mágica'?",
+    "respuesta": "Wolfgang Amadeus Mozart",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué género musical se originó en Jamaica?",
+    "respuesta": "Reggae",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién cantó 'Imagine'?",
+    "respuesta": "John Lennon",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué banda escribió 'Hotel California'?",
+    "respuesta": "Eagles",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso 'El Cascanueces'?",
+    "respuesta": "Piotr Ilich Chaikovski",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué cantante es conocido por 'Shape of You'?",
+    "respuesta": "Ed Sheeran",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso 'Rapsodia Húngara No. 2'?",
+    "respuesta": "Franz Liszt",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué género musical se originó en Nueva Orleans a finales del siglo XIX?",
+    "respuesta": "Jazz",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién cantó 'Smells Like Teen Spirit'?",
+    "respuesta": "Nirvana (Kurt Cobain)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué compositor era sordo en sus últimos años?",
+    "respuesta": "Ludwig van Beethoven",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso 'La Consagración de la Primavera'?",
+    "respuesta": "Ígor Stravinski",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué cantante ganó más Grammy en una sola noche?",
+    "respuesta": "Michael Jackson (8) o Beyoncé (empatada)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso 'Carmina Burana'?",
+    "respuesta": "Carl Orff",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué compositor escribió 'Las Variaciones Goldberg'?",
+    "respuesta": "Johann Sebastian Bach",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso el 'Réquiem' más famoso (K. 626)?",
+    "respuesta": "Wolfgang Amadeus Mozart",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué compositor francés es autor de 'Claro de Luna'?",
+    "respuesta": "Claude Debussy (Suite Bergamasque)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso 'La Traviata'?",
+    "respuesta": "Giuseppe Verdi",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué compositor polaco es famoso por sus nocturnos para piano?",
+    "respuesta": "Frédéric Chopin",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Quién compuso 'El Pájaro de Fuego'?",
+    "respuesta": "Ígor Stravinski",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Música",
+    "pregunta": "¿Qué compositor austriaco escribió 'Sinfonía Inacabada' (No. 8)?",
+    "respuesta": "Franz Schubert",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Romeo y Julieta'?",
+    "respuesta": "William Shakespeare",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Don Quijote de la Mancha'?",
+    "respuesta": "Miguel de Cervantes",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Hamlet'?",
+    "respuesta": "William Shakespeare",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'La Odisea'?",
+    "respuesta": "Homero",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Cien Años de Soledad'?",
+    "respuesta": "Gabriel García Márquez",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'La Iliada'?",
+    "respuesta": "Homero",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'El Principito'?",
+    "respuesta": "Antoine de Saint-Exupéry",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Drácula'?",
+    "respuesta": "Bram Stoker",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Frankenstein'?",
+    "respuesta": "Mary Shelley",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Alicia en el País de las Maravillas'?",
+    "respuesta": "Lewis Carroll",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'La Divina Comedia'?",
+    "respuesta": "Dante Alighieri",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Los Tres Mosqueteros'?",
+    "respuesta": "Alexandre Dumas",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Moby Dick'?",
+    "respuesta": "Herman Melville",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Crimen y Castigo'?",
+    "respuesta": "Fiódor Dostoyevski",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Orgullo y Prejuicio'?",
+    "respuesta": "Jane Austen",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió '1984'?",
+    "respuesta": "George Orwell",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Un Mundo Feliz'?",
+    "respuesta": "Aldous Huxley",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'El Señor de los Anillos'?",
+    "respuesta": "J.R.R. Tolkien",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'El Amor en los Tiempos del Cólera'?",
+    "respuesta": "Gabriel García Márquez",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'La Metamorfosis'?",
+    "respuesta": "Franz Kafka",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Guerra y Paz'?",
+    "respuesta": "León Tolstói",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Los Miserables'?",
+    "respuesta": "Victor Hugo",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Rayuela'?",
+    "respuesta": "Julio Cortázar",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'El Viejo y el Mar'?",
+    "respuesta": "Ernest Hemingway",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Anna Karenina'?",
+    "respuesta": "León Tolstói",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'La Sombra del Viento'?",
+    "respuesta": "Carlos Ruiz Zafón",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Ficciones'?",
+    "respuesta": "Jorge Luis Borges",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Ensayo sobre la Ceguera'?",
+    "respuesta": "José Saramago",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'El Nombre de la Rosa'?",
+    "respuesta": "Umberto Eco",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Cumbres Borrascosas'?",
+    "respuesta": "Emily Brontë",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Ulises' (1922)?",
+    "respuesta": "James Joyce",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'En Busca del Tiempo Perdido'?",
+    "respuesta": "Marcel Proust",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'El Ruido y la Furia'?",
+    "respuesta": "William Faulkner",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Pedro Páramo'?",
+    "respuesta": "Juan Rulfo",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'La Ciudad y los Perros'?",
+    "respuesta": "Mario Vargas Llosa",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Paradiso'?",
+    "respuesta": "José Lezama Lima",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Los Detectives Salvajes'?",
+    "respuesta": "Roberto Bolaño",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Rayuela' (1963)?",
+    "respuesta": "Julio Cortázar",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'El Túnel'?",
+    "respuesta": "Ernesto Sabato",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Literatura",
+    "pregunta": "¿Quién escribió 'Sobre héroes y tumbas'?",
+    "respuesta": "Ernesto Sabato",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Titanic'?",
+    "respuesta": "James Cameron",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Avatar'?",
+    "respuesta": "James Cameron",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Jurassic Park'?",
+    "respuesta": "Steven Spielberg",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué actor interpreta a Iron Man en el MCU?",
+    "respuesta": "Robert Downey Jr.",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Star Wars' (1977)?",
+    "respuesta": "George Lucas",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película de Disney tiene a Simba como protagonista?",
+    "respuesta": "El Rey León",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'El Padrino'?",
+    "respuesta": "Francis Ford Coppola",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué actor interpreta a Harry Potter en las películas?",
+    "respuesta": "Daniel Radcliffe",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Pulp Fiction'?",
+    "respuesta": "Quentin Tarantino",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película animada de Pixar tiene a Woody y Buzz?",
+    "respuesta": "Toy Story",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'E.T.'?",
+    "respuesta": "Steven Spielberg",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué actor interpreta a Neo en 'Matrix'?",
+    "respuesta": "Keanu Reeves",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Indiana Jones: En busca del arca perdida'?",
+    "respuesta": "Steven Spielberg",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué actor interpreta a Joker en 'The Dark Knight' (2008)?",
+    "respuesta": "Heath Ledger",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'La Lista de Schindler'?",
+    "respuesta": "Steven Spielberg",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película ganó el Oscar a Mejor Película en 2020?",
+    "respuesta": "Parásitos (Parasite)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Inception'?",
+    "respuesta": "Christopher Nolan",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué actor interpreta a Wolverine en X-Men?",
+    "respuesta": "Hugh Jackman",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'El Laberinto del Fauno'?",
+    "respuesta": "Guillermo del Toro",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película de 1999 dirigió los hermanos Wachowski?",
+    "respuesta": "Matrix",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Ciudad de Dios'?",
+    "respuesta": "Fernando Meirelles (y Kátia Lund)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué actor interpreta a Forrest Gump?",
+    "respuesta": "Tom Hanks",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'El Resplandor' (1980)?",
+    "respuesta": "Stanley Kubrick",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película animada de Studio Ghibli dirigió Hayao Miyazaki en 2001?",
+    "respuesta": "El Viaje de Chihiro",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Bastardos Sin Gloria' (Inglourious Basterds)?",
+    "respuesta": "Quentin Tarantino",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué actor interpreta a Tony Montana en 'Scarface'?",
+    "respuesta": "Al Pacino",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Django Desencadenado'?",
+    "respuesta": "Quentin Tarantino",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película de 1994 ganó 6 Oscars y está basada en una novela?",
+    "respuesta": "Forrest Gump",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'La La Land'?",
+    "respuesta": "Damien Chazelle",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué actor interpreta a Gandalf en 'El Señor de los Anillos'?",
+    "respuesta": "Ian McKellen",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película ganó el primer Oscar a Mejor Película en 1929?",
+    "respuesta": "Alas (Wings)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Ciudadano Kane' (1941)?",
+    "respuesta": "Orson Welles",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película de Akira Kurosawa de 1950 inspiró 'La última vez que vi a Richard'?",
+    "respuesta": "Rashomon",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió '8½' (Otto e Mezzo)?",
+    "respuesta": "Federico Fellini",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película de 1972 de Andrei Tarkovsky se desarrolla en la Zona?",
+    "respuesta": "Stalker",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Persona' (1966)?",
+    "respuesta": "Ingmar Bergman",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película de Charlie Chaplin de 1940 satiriza a Hitler?",
+    "respuesta": "El Gran Dictador",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Ametralladora' (1938) sobre la mafia?",
+    "respuesta": "Howard Hawks (Scarface 1932)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Qué película de 1960 de Michelangelo Antonioni ganó la Palma de Oro?",
+    "respuesta": "La Aventura (L'Avventura) - Premio del Jurado",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Cine",
+    "pregunta": "¿Quién dirigió 'Solaris' (1972)?",
+    "respuesta": "Andrei Tarkovsky",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién fundó Microsoft junto a Paul Allen?",
+    "respuesta": "Bill Gates",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién fundó Apple junto a Steve Wozniak?",
+    "respuesta": "Steve Jobs",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'CPU'?",
+    "respuesta": "Unidad Central de Procesamiento (Central Processing Unit)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué empresa creó el iPhone?",
+    "respuesta": "Apple",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'WWW'?",
+    "respuesta": "World Wide Web (Red Informática Mundial)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién inventó el teléfono (patente 1876)?",
+    "respuesta": "Alexander Graham Bell",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'USB'?",
+    "respuesta": "Universal Serial Bus (Bus Universal en Serie)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué empresa desarrolló Android?",
+    "respuesta": "Google (originalmente Android Inc.)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'Wi-Fi'?",
+    "respuesta": "Wireless Fidelity (nombre comercial, no acrónimo real)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué empresa creó el sistema operativo Windows?",
+    "respuesta": "Microsoft",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'HTML'?",
+    "respuesta": "HyperText Markup Language (Lenguaje de Marcado de Hipertexto)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién inventó la bombilla incandescente (comercial)?",
+    "respuesta": "Thomas Edison (o Joseph Swan)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'GPS'?",
+    "respuesta": "Global Positioning System (Sistema de Posicionamiento Global)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué red social creó Mark Zuckerberg?",
+    "respuesta": "Facebook",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'AI' o 'IA'?",
+    "respuesta": "Inteligencia Artificial (Artificial Intelligence)",
+    "dificultad": "facil",
+    "puntos": 100
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién inventó la World Wide Web en 1989?",
+    "respuesta": "Tim Berners-Lee",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué empresa creó el lenguaje de programación Java?",
+    "respuesta": "Sun Microsystems (actualmente Oracle)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'HTTP'?",
+    "respuesta": "HyperText Transfer Protocol (Protocolo de Transferencia de Hipertexto)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién fundó Tesla Motors (originalmente)?",
+    "respuesta": "Martin Eberhard y Marc Tarpenning (Elon Musk se unió después)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué lenguaje de programación se usa principalmente para web frontend?",
+    "respuesta": "JavaScript",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué empresa desarrolló el navegador Chrome?",
+    "respuesta": "Google",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'SQL'?",
+    "respuesta": "Structured Query Language (Lenguaje de Consulta Estructurado)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién fundó Amazon?",
+    "respuesta": "Jeff Bezos",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'CPU' en informática?",
+    "respuesta": "Central Processing Unit (Unidad Central de Procesamiento)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué empresa creó el sistema operativo macOS?",
+    "respuesta": "Apple",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién propuso las leyes de la robótica en la ciencia ficción?",
+    "respuesta": "Isaac Asimov",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'URL'?",
+    "respuesta": "Uniform Resource Locator (Localizador Uniforme de Recursos)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué empresa desarrolló el primer iPhone?",
+    "respuesta": "Apple",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién fundó SpaceX?",
+    "respuesta": "Elon Musk",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'API'?",
+    "respuesta": "Application Programming Interface (Interfaz de Programación de Aplicaciones)",
+    "dificultad": "medio",
+    "puntos": 150
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién es considerado el padre de la computación moderna (máquina de Turing)?",
+    "respuesta": "Alan Turing",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'TCP/IP'?",
+    "respuesta": "Transmission Control Protocol / Internet Protocol",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién diseñó el primer lenguaje de programación de alto nivel (FORTRAN)?",
+    "respuesta": "John Backus (equipo IBM)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué algoritmo de encriptación se usó en la Segunda Guerra Mundial (máquina Enigma)?",
+    "respuesta": "Cifrado de la máquina Enigma (rotores)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién descifró la máquina Enigma en gran medida?",
+    "respuesta": "Alan Turing y su equipo en Bletchley Park",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'DNS'?",
+    "respuesta": "Domain Name System (Sistema de Nombres de Dominio)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién propuso la arquitectura de computadoras moderna (programa almacenado)?",
+    "respuesta": "John von Neumann",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'SSD' en almacenamiento?",
+    "respuesta": "Solid State Drive (Unidad de Estado Sólido)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Quién desarrolló el lenguaje de programación C?",
+    "respuesta": "Dennis Ritchie (en Bell Labs)",
+    "dificultad": "dificil",
+    "puntos": 200
+  },
+  {
+    "tematica": "Tecnología",
+    "pregunta": "¿Qué significa 'GPU'?",
+    "respuesta": "Graphics Processing Unit (Unidad de Procesamiento Gráfico)",
+    "dificultad": "dificil",
+    "puntos": 200
+  }
+];

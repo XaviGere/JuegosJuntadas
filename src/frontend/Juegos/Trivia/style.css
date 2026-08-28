@@ -134,3 +134,62 @@ input[type="number"] { width: 100%; padding: 12px; border-radius: 8px; border: 1
 .toast { background-color: var(--toast-bg); color: white; padding: 12px 22px; border-radius: 30px; font-weight: bold; font-size: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); opacity: 0; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
 .toast.mostrar { opacity: 1; transform: translateY(0); }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Modal de Reglas */
+.modal-reglas {
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.contenido-reglas {
+    text-align: left;
+    padding: 20px 0;
+}
+
+.contenido-reglas h3 {
+    color: var(--primary-color);
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.contenido-regras ul {
+    margin-left: 20px;
+    line-height: 1.6;
+}
+
+.contenido-reglas li {
+    margin-bottom: 8px;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.checkbox-recordar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* Checkboxes de dificultad */
+.checkboxes-dificultad {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.checkboxes-dificultad label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}

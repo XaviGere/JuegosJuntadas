@@ -1,3 +1,15 @@
+// --- CIERRE DE MODALES AL CLICKEAR FUERA DEL OVERLAY ---
+// Clic en el fondo (.modal-overlay) cierra el modal sin aplicar cambios.
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.style.display = 'none';
+            }
+        });
+    });
+});
+
 // --- ESTADO GLOBAL Y CONEXIÓN CON EL HUB ---
 let salasHub = JSON.parse(localStorage.getItem('arcade_salas')) || [];
 let idSalaActiva = localStorage.getItem('arcade_sala_activa');
@@ -78,6 +90,66 @@ document.getElementById('btnConfirmarAccion').addEventListener('click', () => {
     cerrarConfirmacion();
 });
 
+// --- SISTEMA DE REGLAS ---
+function mostrarReglas(juego, reglasHTML) {
+    const modal = document.getElementById('modalReglas');
+    const titulo = document.getElementById('tituloReglas');
+    const contenido = document.getElementById('contenidoReglas');
+    const checkNoMostrar = document.getElementById('checkNoMostrarReglas');
+    
+    // Verificar si usuario eligió no mostrar
+    const claveNoMostrar = `no_mostrar_reglas_${juego}`;
+    if (localStorage.getItem(claveNoMostrar) === 'true') {
+        return; // No mostrar
+    }
+    
+    titulo.innerText = `📜 Reglas - ${juego}`;
+    contenido.innerHTML = reglasHTML;
+    checkNoMostrar.checked = false;
+    
+    modal.style.display = 'flex';
+    
+    // Guardar preferencia
+    checkNoMostrar.onchange = () => {
+        localStorage.setItem(claveNoMostrar, checkNoMostrar.checked);
+    };
+}
+
+function cerrarReglas() {
+    document.getElementById('modalReglas').style.display = 'none';
+}
+
+const reglasBasta = `
+    <h3>🎯 Objetivo</h3>
+    <p>Acertar palabras que comiencen con cada letra del rosco según la categoría seleccionada.</p>
+    
+    <h3>⏱️ Mecánicas</h3>
+    <ul>
+        <li>Tenés <strong>15 segundos</strong> por letra para pensar una palabra.</p>
+        <li>Podés usar <strong>Pasapalabra</strong> para saltar la letra (limitado por configuración).</p>
+        <li>Si acertás, ganás puntos y seguís jugando.</p>
+        <li>Si el tiempo se agota, quedás eliminado de la ronda.</p>
+    </ul>
+    
+    <h3>🏆 Puntuación</h3>
+    <ul>
+        <li>Acierto: +50 puntos</li>
+        <li>Sobrevivir ronda: +100 puntos</li>
+        <li>Último en pie: +200 puntos</li>
+    </ul>
+    
+    <h3>⚙️ Configuraciones</h3>
+    <ul>
+        <li>Podés ajustar tiempo, rondas y pasapalabras disponibles.</li>
+        <li>Modo completitud da tiempo extra cuando queda 1 jugador.</li>
+    </ul>
+`;
+
+// Mostrar reglas al cargar
+document.addEventListener('DOMContentLoaded', () => {
+    mostrarReglas('Basta', reglasBasta);
+});
+
 // --- CONFIGURACIÓN DE LA PARTIDA ---
 let configJuego = {
     tiempo: 15,
@@ -101,6 +173,7 @@ let tiempoDeTurnoFijo = configJuego.tiempo;
 let enJuego = false;
 let juegoPausado = false;
 let rondaFinalizada = false; 
+let primerTurnoDeRonda = true; // Bandera para mostrar categoría solo al inicio
 
 let categoriasUsadas = []; 
 
@@ -316,6 +389,44 @@ function renderizarJugadores() {
 function iniciarTurno() {
     if (jugadoresVivos.length === 0) return;
     
+    // Detener cualquier intervalo que esté corriendo
+    if (intervalo) clearInterval(intervalo);
+    
+    // Paso 1: Mostrar categoría en grande SOLO al inicio de la ronda
+    if (primerTurnoDeRonda) {
+        const categoriaDOM = document.getElementById('textoCategoria');
+        const categoriaActual = categoriaDOM.innerText;
+        
+        // Si no hay categoría seleccionada, tirar una automáticamente
+        if (categoriaActual === "Toca para elegir" || categoriaActual === "Sin categorías") {
+            tirarCategoria();
+        }
+        
+        // Mostrar categoría en el centro grande
+        const categoriaAMostrar = document.getElementById('textoCategoria').innerText;
+        relojDOM.innerText = categoriaAMostrar;
+        relojDOM.style.fontSize = "2em"; // Texto más grande
+        relojDOM.style.fontWeight = "bold";
+        relojDOM.style.backgroundColor = "#3498db"; // Color distintivo para categoría
+        relojDOM.style.color = "#ffffff";
+        
+        // Bloquear interacción durante la pausa de categoría
+        svgDOM.style.pointerEvents = "none";
+        
+        // Pausa de 2 segundos para que vean la categoría
+        setTimeout(() => {
+            iniciarContadorReal();
+        }, 2000); // 2 segundos mostrando categoría
+        
+        primerTurnoDeRonda = false; // Ya no es el primer turno
+    } else {
+        // Para turnos subsiguientes, iniciar directamente el contador
+        iniciarContadorReal();
+    }
+}
+
+function iniciarContadorReal() {
+    // Paso 2: Iniciar el contador normalmente
     enJuego = true;
     juegoPausado = false;
     
@@ -327,7 +438,13 @@ function iniciarTurno() {
     
     const jugadorActual = jugadoresVivos[turnoIndex];
     relojDOM.innerText = tiempoRestante;
+    relojDOM.style.fontSize = ""; // Restaurar tamaño normal
+    relojDOM.style.fontWeight = "";
     relojDOM.style.backgroundColor = jugadorActual.color;
+    relojDOM.style.color = "var(--text-color)";
+    
+    // Restaurar interacción
+    svgDOM.style.pointerEvents = "auto";
     
     if(jugadorActual.pasapalabras <= 0) relojDOM.classList.add('sin-pasapalabra');
     else relojDOM.classList.remove('sin-pasapalabra');
@@ -348,7 +465,7 @@ function iniciarTurno() {
 
             if (tiempoRestante <= 0) {
                 clearInterval(intervalo);
-                eliminarJugadorActual();
+                eliminarJugadorActualConPausa();
             }
         }
     }, 1000);
@@ -373,24 +490,52 @@ function tocarReloj() {
 }
 
 function eliminarJugadorActual() {
+    // Esta función ahora llama a la versión con pausa para consistencia
+    eliminarJugadorActualConPausa();
+}
+
+function eliminarJugadorActualConPausa() {
+    const jugadorEliminado = jugadoresVivos[turnoIndex];
     jugadoresVivos.splice(turnoIndex, 1);
     
-    if (jugadoresVivos.length === 0) {
-        enJuego = false; rondaFinalizada = true;
-        relojDOM.innerText = "✖"; relojDOM.style.backgroundColor = "#e74c3c";
-        mostrarToast("Nadie superó la ronda. Fin sin puntos.", 4000);
-        setTimeout(avanzarRonda, 3500);
-    } else if (jugadoresVivos.length === 1 && !configJuego.completitud) {
-        enJuego = false; rondaFinalizada = true;
-        relojDOM.innerText = "🏆"; relojDOM.style.backgroundColor = "#f1c40f";
-        jugadoresVivos[0].puntosMesa += 100;
-        renderizarJugadores();
-        mostrarToast(`¡${jugadoresVivos[0].nombre} es el último en pie y gana 100 puntos!`, 4000);
-        setTimeout(avanzarRonda, 3500);
-    } else {
-        if (turnoIndex >= jugadoresVivos.length) turnoIndex = 0;
-        iniciarTurno();
-    }
+    // Mostrar feedback visual de eliminación
+    relojDOM.innerText = "💀"; // Emoji de eliminación
+    relojDOM.style.backgroundColor = "#e74c3c"; // Rojo
+    relojDOM.style.fontSize = "2em";
+    
+    // Mostrar toast informativo
+    mostrarToast(`¡${jugadorEliminado.nombre} eliminado!`, 2000);
+    
+    // Bloquear interacción durante la pausa
+    juegoPausado = true;
+    svgDOM.style.pointerEvents = "none"; // Bloquear toques en tablero
+    
+    // Pausa de 2 segundos antes de pasar al siguiente turno
+    setTimeout(() => {
+        // Restaurar interacción
+        juegoPausado = false;
+        svgDOM.style.pointerEvents = "auto";
+        relojDOM.style.fontSize = "";
+        
+        if (jugadoresVivos.length === 0) {
+            enJuego = false; rondaFinalizada = true;
+            relojDOM.innerText = "✖";
+            relojDOM.style.backgroundColor = "#2c3e50";
+            mostrarToast("Nadie superó la ronda. Fin sin puntos.", 4000);
+            setTimeout(avanzarRonda, 3500);
+        } else if (jugadoresVivos.length === 1 && !configJuego.completitud) {
+            enJuego = false; rondaFinalizada = true;
+            relojDOM.innerText = "🏆";
+            relojDOM.style.backgroundColor = "#f1c40f";
+            jugadoresVivos[0].puntosMesa += 100;
+            renderizarJugadores();
+            mostrarToast(`¡${jugadoresVivos[0].nombre} es el último en pie y gana 100 puntos!`, 4000);
+            setTimeout(avanzarRonda, 3500);
+        } else {
+            if (turnoIndex >= jugadoresVivos.length) turnoIndex = 0;
+            iniciarTurno(); 
+        }
+    }, 2000); // 2 segundos de pausa
 }
 
 function verificarVictoria() {
@@ -420,6 +565,7 @@ function rotarJugadores() {
 
 function prepararRonda() {
     letrasDisponibles = [...configJuego.letrasActivas];
+    primerTurnoDeRonda = true; // Resetear bandera al inicio de ronda
     
     if (rondaActual === 1) {
         jugadoresVivos = jugadoresPartida.map(j => { j.pasapalabras = configJuego.pasapalabras; return j; });

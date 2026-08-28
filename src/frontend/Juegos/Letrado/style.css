@@ -211,3 +211,97 @@ input:checked + .slider:before { transform: translateX(24px); }
     .jugador-nombre { font-size: 11px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
     .jugador-pp { display: block !important; font-size: 9px !important; opacity: 0.9; }
 }
+
+/* Animaciones de transición */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(52, 152, 219, 0.8); }
+}
+
+.timer-animado {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.categoria-mostrada {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.eliminacion-animada {
+    animation: shake 0.5s ease-in-out;
+}
+
+.transicion-suave {
+    transition: all 0.3s ease-in-out;
+}
+
+.bloqueado {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(50%);
+}
+
+/* Modal de Reglas */
+.modal-reglas {
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.contenido-reglas {
+    text-align: left;
+    padding: 20px 0;
+}
+
+.contenido-reglas h3 {
+    color: var(--primary-color);
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.contenido-reglas ul {
+    margin-left: 20px;
+    line-height: 1.6;
+}
+
+.contenido-reglas li {
+    margin-bottom: 8px;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.checkbox-recordar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-color);
+    cursor: pointer;
+}
